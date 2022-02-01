@@ -1,0 +1,12 @@
+version: '3'
+services:
+  solucao-api:
+    build: /Solucao.API/.
+    environment:
+      DbServer: "mssql-server"
+      DbPort: "1433"
+      DbUser: "SA"
+      Password: "solucao#2021"
+      Database: "SolucaoDB"
+    ports: 
+      - "8090:80"
