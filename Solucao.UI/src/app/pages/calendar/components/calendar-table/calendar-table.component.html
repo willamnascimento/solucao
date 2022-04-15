@@ -1,0 +1,82 @@
+<mat-card class="calendar-table">
+    <mat-card-title class="calendar-table__header">
+        <h5 class="calendar-table__title">Agenda do dia {{time | date:'dd/MM/yyyy'}}</h5>
+        <div *ngIf="isShowFilterInput" class="calendar-table-wrapper__search">
+            
+            <!-- <input matInput class="calendar-table-wrapper__search-input" mask="00/00/0000"  #inputSearch (keyup)="applyFilter($event)"> -->
+            <input matInput class="calendar-table-wrapper__search-input" [matDatepicker]="dp"  placeholder="Data locação" #inputSearch (dateInput)="applyFilter($event)">
+            <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+            <mat-datepicker #dp></mat-datepicker>
+            <button class="calendar-table-wrapper__button" (click)="showFilterInput()">
+              <mat-icon class="calendar-table-wrapper__icon" (click)="closeFilterInput()">close</mat-icon>
+            </button>
+          </div>
+        <div class="row">
+            <button mat-icon-button (click)="showFilterInput()">
+                <mat-icon>date_range</mat-icon>
+              </button>
+            <button mat-icon-button (click)="openDialog(null)">
+                <mat-icon>control_point</mat-icon>
+            </button>
+        </div>
+    </mat-card-title>
+  
+    <mat-card-content >
+        <table class="calendar-table__table" mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="equipamento" >
+                <th class="calendar-table__table-header" mat-header-cell *matHeaderCellDef > EQUIPAMENTO </th>
+                <td class="calendar-table__table-body"  mat-cell *matCellDef="let element">
+                    <span style="float: left; width: 100%;">{{element.equipament.name}}</span>  
+                    <span style="float: left;" >{{descriptionSpecifications(element)}} </span>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="locatario" >
+                <th class="calendar-table__table-header" mat-header-cell *matHeaderCellDef > LOCATÁRIO </th>
+                <td class="calendar-table__table-body" mat-cell *matCellDef="let element"> {{element.client.name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="horario" >
+                <th class="calendar-table__table-header" mat-header-cell *matHeaderCellDef > HORÁRIO </th>
+                <td class="calendar-table__table-body" mat-cell *matCellDef="let element"> {{showTime(element)}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="tecnica" >
+                <th class="calendar-table__table-header" mat-header-cell *matHeaderCellDef > TÉCNICA </th>
+                <td class="calendar-table__table-body" mat-cell *matCellDef="let element"> {{element.technique?.name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="motorista" >
+                <th class="calendar-table__table-header" mat-header-cell *matHeaderCellDef > MOTORISTA </th>
+                <td class="calendar-table__table-body" mat-cell *matCellDef="let element"> {{element.driver?.name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="status" >
+                <th class="calendar-table__table-header" mat-header-cell *matHeaderCellDef > STATUS </th>
+                <td class="calendar-table__table-body" mat-cell *matCellDef="let element">
+                    <div class="calendar-table__content-badge" [ngClass]="element.status">
+                            
+                      </div>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="usuario" >
+                <th class="calendar-table__table-header" mat-header-cell *matHeaderCellDef > USUÁRIO </th>
+                <td class="calendar-table__table-body" mat-cell *matCellDef="let element"> {{element.user.name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="obs" >
+                <th class="calendar-table__table-header" mat-header-cell *matHeaderCellDef > OBS </th>
+                <td class="calendar-table__table-body" mat-cell *matCellDef="let element"> {{element.note?.substring(0,10)}} </td>
+            </ng-container>
+            
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+            (click)="openDialog(row)">
+            </tr>
+        </table>
+          
+    </mat-card-content>
+  </mat-card>
+  
+  

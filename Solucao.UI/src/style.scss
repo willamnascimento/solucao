@@ -1,0 +1,44 @@
+.toast-message {
+    margin-left: 40px !important;
+}
+
+mat-toolbar.page-header {
+    padding: 70px 24px 16px 24px !important;
+}
+
+table > thead > tr > th {
+  border-bottom: 0.5px solid #B9B9B9 !important;
+}
+
+table > tbody > tr > td {
+  border-bottom: 0.5px solid #B9B9B9 !important;
+  cursor: pointer;
+}
+
+mat-select.mat-select .mat-select-arrow {
+  color: transparent !important;
+}
+
+mat-dialog-container.mat-dialog-container {
+  overflow-y: hidden;;
+}
+
+div.mat-dialog-content {
+  height: 450px !important;
+}
+
+@media (max-width: 700px)
+{
+  mat-card.mat-card
+   {
+    min-height: 400px !important;
+   }
+}
+
+@media (min-width: 1200px)
+{
+  mat-card.mat-card
+   {
+    min-height: 750px !important;
+   }
+}
