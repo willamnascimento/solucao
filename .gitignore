@@ -69,7 +69,7 @@ Solucao.API/[Dd]ebug/
 Solucao.API/[Rr]elease/
 Solucao.API/x64/
 Solucao.API/[Bb]in/
-Solucao.API/[Oo]bj/
+Solucao.API/[Oo]bj/*
 
 # User-specific files
 Solucao.Application/*.suo
