@@ -69,7 +69,8 @@ Solucao.API/[Dd]ebug/
 Solucao.API/[Rr]elease/
 Solucao.API/x64/
 Solucao.API/[Bb]in/
-Solucao.API/[Oo]bj/*
+Solucao.API/[Oo]bj/
+Solucao.API/[Oo]bj/Debug/net5.0/
 
 # User-specific files
 Solucao.Application/*.suo
