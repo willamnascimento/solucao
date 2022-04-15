@@ -18,7 +18,7 @@ namespace Solucao.API.Controllers
 {
     [Route("api/v1")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class StatesController : ControllerBase
     {
         private readonly IStateService stateService;

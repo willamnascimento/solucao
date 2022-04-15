@@ -33,7 +33,7 @@ namespace Solucao.Application.Data.Repositories
 
         public async Task<Client> GetById(string Id)
         {
-            return await Db.Clients.FindAsync(Id);
+            return await Db.Clients.FindAsync(new Guid(Id));
         }
 
         public async Task<ValidationResult> Add(Client client)

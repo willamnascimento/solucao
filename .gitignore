@@ -1,0 +1,109 @@
+Solucao.UI/.DS_STORE
+
+Solucao.UI/dist/
+Solucao.UI/bazel-out
+Solucao.UI/integration/bazel/bazel-*
+Solucao.UI/*.log
+Solucao.UI/node_modules
+
+# CircleCI temporary file for cache key computation.
+# See `save_month_to_file` in `.circleci/config.yml`.
+Solucao.UI/month.txt
+
+# Include when developing application packages.
+Solucao.UI/pubspec.lock
+Solucao.UI/.c9
+Solucao.UI/.idea/
+.devcontainer/*
+!.devcontainer/README.md
+!.devcontainer/recommended-devcontainer.json
+!.devcontainer/recommended-Dockerfile
+.settings/
+.vscode/launch.json
+.vscode/settings.json
+.vscode/tasks.json
+*.swo
+*.swp
+Solucao.UI/modules/.settings
+Solucao.UI/modules/.vscode
+.vimrc
+.nvimrc
+
+# Don't check in secret files
+*secret.js
+
+# Ignore npm/yarn debug log
+npm-debug.log
+yarn-error.log
+
+# build-analytics
+.build-analytics
+
+# rollup-test output
+Solucao.UI/modules/rollup-test/dist/
+
+# User specific bazel settings
+.bazelrc.user
+
+# User specific ng-dev settings
+.ng-dev.user*
+
+.notes.md
+baseline.json
+
+# Ignore .history for the xyz.local-history VSCode extension
+.history
+
+# Husky
+.husky/_
+
+publish/
+
+# User-specific files
+Solucao.API/*.suo
+Solucao.API/*.user
+Solucao.API/*.sln.docstates
+
+# Build results
+Solucao.API/[Dd]ebug/
+Solucao.API/[Rr]elease/
+Solucao.API/x64/
+Solucao.API/[Bb]in/
+Solucao.API/[Oo]bj/
+
+# User-specific files
+Solucao.Application/*.suo
+Solucao.Application/*.user
+Solucao.Application/*.sln.docstates
+
+# Build results
+Solucao.Application/[Dd]ebug/
+Solucao.Application/[Rr]elease/
+Solucao.Application/x64/
+Solucao.Application/[Bb]in/
+Solucao.Application/[Oo]bj/
+
+# User-specific files
+Solucao.CrossCutting/*.suo
+Solucao.CrossCutting/*.user
+Solucao.CrossCutting/*.sln.docstates
+
+# Build results
+Solucao.CrossCutting/[Dd]ebug/
+Solucao.CrossCutting/[Rr]elease/
+Solucao.CrossCutting/x64/
+Solucao.CrossCutting/[Bb]in/
+Solucao.CrossCutting/[Oo]bj/
+
+# User-specific files
+Solucao.Test/*.suo
+Solucao.Test/*.user
+Solucao.Test/*.sln.docstates
+
+# Build results
+Solucao.Test/[Dd]ebug/
+Solucao.Test/[Rr]elease/
+Solucao.Test/x64/
+Solucao.Test/[Bb]in/
+Solucao.Test/[Oo]bj/
+Solucao.Test/TestResults/

@@ -21,12 +21,23 @@ namespace Solucao.Application.Service.Interfaces
             mapper = _mapper;
         }
 
-        public Task<ValidationResult> Add(SpecificationViewModel specification)
+        public async Task<ValidationResult> Add(SpecificationViewModel specification)
         {
-            specification.Id = Guid.NewGuid();
-            specification.CreatedAt = DateTime.Now;
-            var _specification = mapper.Map<Specification>(specification);
-            return specificationRepository.Add(_specification);
+            bool retorno = false;
+
+            if (specification.Single)
+                retorno = await specificationRepository.SingleIsValid(null);
+
+            if (!retorno)
+            {
+                specification.Id = Guid.NewGuid();
+                specification.CreatedAt = DateTime.Now;
+                var _specification = mapper.Map<Specification>(specification);
+                return await specificationRepository.Add(_specification);
+            }
+
+            return new ValidationResult("Já existe uma especificação única");
+            
         }
 
         public async Task<IEnumerable<SpecificationViewModel>> GetAll()
@@ -34,13 +45,18 @@ namespace Solucao.Application.Service.Interfaces
             return mapper.Map<IEnumerable<SpecificationViewModel>>(await specificationRepository.GetAll());
         }
 
-        public Task<ValidationResult> Update(SpecificationViewModel specification)
+        public async Task<ValidationResult> Update(SpecificationViewModel specification)
         {
-            var _specification = mapper.Map<Specification>(specification);
+            var retorno = await specificationRepository.SingleIsValid(specification.Id);
 
-            _specification.UpdatedAt = DateTime.Now;
+            if (!retorno)
+            {
+                var _specification = mapper.Map<Specification>(specification);
+                _specification.UpdatedAt = DateTime.Now;
+                return await specificationRepository.Update(_specification);
+            }
 
-            return specificationRepository.Update(_specification);
+            return new ValidationResult("Já existe uma especificação única");
         }
     }
 }

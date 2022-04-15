@@ -42,7 +42,7 @@ namespace Solucao.Application.Data.Mappings
 
             builder.Property(c => c.UpdatedAt)
                 .HasColumnType("datetime");
-             
+
 
             builder.Property(c => c.Active)
                 .HasColumnType("bit")

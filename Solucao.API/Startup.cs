@@ -110,9 +110,15 @@ namespace Solucao.API
             app.UseHttpsRedirection();
 
             // Make sure you call this before calling app.UseMvc()
-            app.UseCors(
-                options => options.WithOrigins("http://localhost:8081").AllowAnyMethod().AllowAnyHeader()
-            );
+            //app.UseCors(
+            //    options => options.WithOrigins("http://solucao-laser-dev.s3-website-us-east-1.amazonaws.com").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin()
+            //);
+            app.UseCors(builder => builder
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+            
+
 
             app.Use(async (context, next) =>
             {

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Solucao.Application.Data.Interfaces
 {
-    public interface IPersonRepository : IDisposable
+    public interface IPersonRepository
     {
         Task<IEnumerable<Person>> GetAll(bool ativo, string tipo_pessoa);
         Task<ValidationResult> Add(Person person);

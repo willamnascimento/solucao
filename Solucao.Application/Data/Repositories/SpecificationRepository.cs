@@ -27,6 +27,13 @@ namespace Solucao.Application.Data.Repositories
             return await Db.Specifications.Include(x => x.EquipamentSpecifications).ToListAsync();
         }
 
+        public async Task<bool> SingleIsValid(Guid? id)
+        {
+            if (id.HasValue)
+                return await Db.Specifications.AnyAsync(x => x.Id != id.Value && x.Active && x.Single);
+            return await Db.Specifications.AnyAsync(x => x.Active && x.Single);
+        }
+
         public async Task<ValidationResult> Add(Specification specification)
         {
             try

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Solucao.Application.Data;
+using Solucao.Application.Data.Interfaces;
 using Solucao.Application.Data.Repositories;
 using Solucao.Application.Service.Implementations;
 using Solucao.Application.Service.Interfaces;
@@ -27,8 +28,8 @@ namespace Solucao.CrossCutting
 
             // Infra
             services.AddScoped<UserRepository>();
-            services.AddScoped<PersonRepository>();
-            services.AddScoped<ClientRepository>();
+            services.AddScoped<IPersonRepository,PersonRepository>();
+            services.AddScoped<IClientRepository,ClientRepository>();
             services.AddScoped<StateRepository>();
             services.AddScoped<CityRepository>();
             services.AddScoped<SpecificationRepository>();

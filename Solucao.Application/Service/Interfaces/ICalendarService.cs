@@ -1,4 +1,5 @@
 ﻿using Solucao.Application.Contracts;
+using Solucao.Application.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -14,7 +15,9 @@ namespace Solucao.Application.Service.Interfaces
         Task<ValidationResult> Update(CalendarViewModel calendar, Guid user);
         Task<IEnumerable<CalendarViewModel>> GetAll(DateTime date);
         Task<CalendarViewModel> GetById(Guid id);
-        Task<ValidationResult> ValidateLease(DateTime date, Guid clientId, Guid equipamentId, string startTime);
+
+        Task<ValidationResult> ValidateLease(DateTime date, Guid clientId, Guid equipamentId, IList<CalendarSpecifications> specifications ,string startTime);
+        Task<IEnumerable<CalendarViewModel>> Availability(DateTime startDate, DateTime endDate, Guid? clientId, Guid? equipamentId);
 
 
     }

@@ -23,7 +23,7 @@ namespace Solucao.Application.Utils
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            loggers.Clear();
         }
     }
 }

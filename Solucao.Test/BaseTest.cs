@@ -20,8 +20,10 @@ namespace Solucao.Test
         public IMD5Service mD5Service;
         public TokenService tokenService;
         public IPersonService personService;
+        public IClientService clientService;
         public Mock<SolucaoContext> mockSolucaoContext;
         public Mock<IPersonRepository> mockPersonRepository;
+        public Mock<IClientRepository> mockClientRepository;
         public Mock<IMapper> mockMapper;
         public DbContextOptions<SolucaoContext> options;
         public PersonRepository personRepository;
@@ -31,21 +33,24 @@ namespace Solucao.Test
             mockMapper = new Mock<IMapper>();
             InjectRepositories();
             InjectServices();
+
         }
 
         public void InjectRepositories()
         {
             options = new DbContextOptionsBuilder<SolucaoContext>()
-                .UseInMemoryDatabase(databaseName: "Tests")
+                .UseInMemoryDatabase(databaseName: "Test")
                 .Options;
 
             var service_ = new ServiceCollection();
             service_.AddScoped<SolucaoContext>();
             service_.AddScoped<IPersonRepository, PersonRepository>();
+            service_.AddScoped<IClientRepository, ClientRepository>();
 
             var provider = service_.BuildServiceProvider();
             mockSolucaoContext = new Mock<SolucaoContext>();
             mockPersonRepository =  new Mock<IPersonRepository>();
+            mockClientRepository = new Mock<IClientRepository>();
             //personRepository = new PersonRepository(mockSolucaoContext.Object);
 
         }
@@ -60,6 +65,7 @@ namespace Solucao.Test
             mD5Service = provider.GetService<IMD5Service>();
             tokenService = provider.GetService<TokenService>();
             personService = new PersonService(mockPersonRepository.Object, mockMapper.Object);
+            clientService = new ClientService(mockClientRepository.Object, mockMapper.Object);
 
         }
     }

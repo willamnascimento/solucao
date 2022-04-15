@@ -70,6 +70,81 @@ namespace Solucao.Application.Data.Mappings
                 .HasColumnType("int")
                 .IsRequired();
 
+            builder.Property(c => c.Neighborhood)
+                .HasColumnType("varchar(30)")
+                .HasMaxLength(30);
+
+            builder.Property(c => c.IsPhysicalPerson)
+                .HasColumnType("bit");
+
+            builder.Property(c => c.IsAnnualContract)
+                .HasColumnType("bit");
+
+            builder.Property(c => c.IsReceipt)
+                .HasColumnType("bit");
+
+            builder.Property(c => c.NameForReceipt)
+                .HasColumnType("varchar(30)")
+                .HasMaxLength(30);
+
+            builder.Property(c => c.HasAirConditioning)
+                .HasColumnType("bit");
+
+            builder.Property(c => c.Has220V)
+                .HasColumnType("bit");
+
+            builder.Property(c => c.HasStairs)
+                .HasColumnType("bit");
+
+            builder.Property(c => c.TakeTransformer)
+                .HasColumnType("bit");
+
+            builder.Property(c => c.HasTechnique)
+                .HasColumnType("bit");
+
+            builder.Property(c => c.TechniqueOption1)
+                .HasColumnType("varchar(30)")
+                .HasMaxLength(30);
+
+            builder.Property(c => c.TechniqueOption2)
+                .HasColumnType("varchar(30)")
+                .HasMaxLength(30);
+
+            builder.Property(c => c.LandMark)
+                .HasColumnType("varchar(30)")
+                .HasMaxLength(30);
+
+            builder.Property(c => c.Responsible)
+                .HasColumnType("varchar(30)")
+                .HasMaxLength(30);
+
+            builder.Property(c => c.Specialty)
+                .HasColumnType("varchar(30)")
+                .HasMaxLength(30);
+
+            builder.Property(c => c.ClinicCellPhone)
+                .HasColumnType("varchar(15)")
+                .HasMaxLength(15);
+
+            builder.Property(c => c.ClinicName)
+                .HasColumnType("varchar(30)")
+                .HasMaxLength(30);
+
+            builder.Property(c => c.ZipCode)
+                .HasColumnType("varchar(9)")
+                .HasMaxLength(9);
+
+            builder.Property(c => c.Secretary)
+                .HasColumnType("varchar(30)")
+                .HasMaxLength(30);
+
+            builder.Property(c => c.CpfCnpj)
+                .HasColumnType("varchar(18)")
+                .HasMaxLength(18);
+
+            builder.Property(c => c.RgIe)
+                .HasColumnType("varchar(20)")
+                .HasMaxLength(20);
 
         }
     }

@@ -122,7 +122,7 @@ namespace Solucao.Application.Service.Implementations
             return null;
         }
 
-        public async Task<ValidationResult> ValidateLease(DateTime date, Guid clientId, Guid equipamentId, string startTime)
+        public async Task<ValidationResult> ValidateLease(DateTime date, Guid clientId, Guid equipamentId, IList<CalendarSpecifications> specifications, string startTime)
         {
             try
             {
@@ -131,7 +131,26 @@ namespace Solucao.Application.Service.Implementations
                 var result = await calendarRepository.ValidateLease(date, clientId, equipamentId);
 
                 if (!result.Any())
+                {
+                    var temp = specifications.Where(x => x.Active).ToList();
+
+                    var res = await calendarRepository.GetCalendarBySpecificationsAndDate(temp, date);
+
+                    if (res.Any())
+                    {
+                        //foreach (var item in res)
+                        //{
+                        //    foreach (var item_ in item.CalendarSpecifications)
+                        //    {
+
+                        //    }
+                        //}
+                    }
+                        //return new ValidationResult("Para data e hora informada, equipamento já está em uso.");
+
                     return ValidationResult.Success;
+
+                }
 
                 foreach (var item in result)
                 {
@@ -154,6 +173,10 @@ namespace Solucao.Application.Service.Implementations
 
                 }
 
+                //var temp = specifications.Where(x => x.Active).ToList();
+
+                //var a = calendarRepository.GetCalendarBySpecificationsAndDate(temp, date);
+
                 return ValidationResult.Success;
             }
             catch (Exception)
@@ -161,7 +184,11 @@ namespace Solucao.Application.Service.Implementations
 
                 throw;
             }
-            
+        }
+
+        public async Task<IEnumerable<CalendarViewModel>> Availability(DateTime startDate, DateTime endDate, Guid? clientId, Guid? equipamentId)
+        {
+            return mapper.Map<IEnumerable<CalendarViewModel>>(await calendarRepository.Availability(startDate, endDate, clientId, equipamentId));
         }
     }
 }

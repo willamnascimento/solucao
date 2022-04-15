@@ -39,6 +39,16 @@ namespace Solucao.API.Controllers
             return await calendarService.GetAll(model.Date);
         }
 
+        [HttpGet("calendar/availability")]
+        [SwaggerResponse((int)HttpStatusCode.OK, Type = typeof(Calendar))]
+        [SwaggerResponse((int)HttpStatusCode.BadRequest, Type = typeof(ApplicationError))]
+        [SwaggerResponse((int)HttpStatusCode.Conflict, Type = typeof(ApplicationError))]
+        [SwaggerResponse((int)HttpStatusCode.NotFound, Type = typeof(ApplicationError))]
+        public async Task<IEnumerable<CalendarViewModel>> AvailabilityAsync([FromQuery] CalendarRequest model)
+        {
+            return await calendarService.Availability(model.StartDate, model.EndDate, model.ClientId, model.EquipamentId);
+        }
+
         [HttpPost("calendar")]
         [SwaggerResponse((int)HttpStatusCode.OK, Type = typeof(Calendar))]
         [SwaggerResponse((int)HttpStatusCode.BadRequest, Type = typeof(ApplicationError))]
@@ -47,7 +57,7 @@ namespace Solucao.API.Controllers
         public async Task<IActionResult> PostAsync([FromBody] CalendarViewModel model)
         {
             ValidationResult result;
-            result = await calendarService.ValidateLease(model.Date, model.ClientId, model.EquipamentId, model.StartTime1);
+            result = await calendarService.ValidateLease(model.Date, model.ClientId, model.EquipamentId, model.CalendarSpecifications, model.StartTime1);
 
             if (result != null)
             {
@@ -75,7 +85,7 @@ namespace Solucao.API.Controllers
         public async Task<IActionResult> PutAsync([FromBody] CalendarViewModel model)
         {
             ValidationResult result;
-            result = await calendarService.ValidateLease(model.Date, model.ClientId, model.EquipamentId, model.StartTime1);
+            result = await calendarService.ValidateLease(model.Date, model.ClientId, model.EquipamentId, model.CalendarSpecifications, model.StartTime1);
 
             if (result != null)
             {

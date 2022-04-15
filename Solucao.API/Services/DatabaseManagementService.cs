@@ -12,7 +12,7 @@ namespace Solucao.API.Services
     public static class DatabaseManagementService
     {
         // Getting the scope of our database context
-        public static void MigrationInitialisation(IApplicationBuilder app)
+        public static void  MigrationInitialisation(IApplicationBuilder app)
         {
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {

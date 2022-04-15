@@ -15,5 +15,7 @@ namespace Solucao.Application.Service.Interfaces
         Task<ValidationResult> Add(SpecificationViewModel specification);
 
         Task<ValidationResult> Update(SpecificationViewModel specification);
+
+
     }
 }

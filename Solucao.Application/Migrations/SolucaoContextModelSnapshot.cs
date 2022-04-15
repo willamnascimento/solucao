@@ -156,9 +156,21 @@ namespace Solucao.Application.Migrations
                     b.Property<int>("CityId")
                         .HasColumnType("int");
 
+                    b.Property<string>("ClinicCellPhone")
+                        .HasColumnType("varchar(15)")
+                        .HasMaxLength(15);
+
+                    b.Property<string>("ClinicName")
+                        .HasColumnType("varchar(30)")
+                        .HasMaxLength(30);
+
                     b.Property<string>("Complement")
                         .HasColumnType("varchar(30)")
                         .HasMaxLength(30);
+
+                    b.Property<string>("CpfCnpj")
+                        .HasColumnType("varchar(18)")
+                        .HasMaxLength(18);
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime");
@@ -168,10 +180,43 @@ namespace Solucao.Application.Migrations
                         .HasColumnType("varchar(50)")
                         .HasMaxLength(50);
 
+                    b.Property<bool>("Has220V")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("HasAirConditioning")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("HasStairs")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("HasTechnique")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsAnnualContract")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsPhysicalPerson")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsReceipt")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LandMark")
+                        .HasColumnType("varchar(30)")
+                        .HasMaxLength(30);
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("varchar(50)")
                         .HasMaxLength(50);
+
+                    b.Property<string>("NameForReceipt")
+                        .HasColumnType("varchar(30)")
+                        .HasMaxLength(30);
+
+                    b.Property<string>("Neighborhood")
+                        .HasColumnType("varchar(30)")
+                        .HasMaxLength(30);
 
                     b.Property<string>("Number")
                         .IsRequired()
@@ -183,11 +228,42 @@ namespace Solucao.Application.Migrations
                         .HasColumnType("varchar(14)")
                         .HasMaxLength(14);
 
+                    b.Property<string>("Responsible")
+                        .HasColumnType("varchar(30)")
+                        .HasMaxLength(30);
+
+                    b.Property<string>("RgIe")
+                        .HasColumnType("varchar(20)")
+                        .HasMaxLength(20);
+
+                    b.Property<string>("Secretary")
+                        .HasColumnType("varchar(30)")
+                        .HasMaxLength(30);
+
+                    b.Property<string>("Specialty")
+                        .HasColumnType("varchar(30)")
+                        .HasMaxLength(30);
+
                     b.Property<int>("StateId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("TakeTransformer")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("TechniqueOption1")
+                        .HasColumnType("varchar(30)")
+                        .HasMaxLength(30);
+
+                    b.Property<string>("TechniqueOption2")
+                        .HasColumnType("varchar(30)")
+                        .HasMaxLength(30);
+
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime");
+
+                    b.Property<string>("ZipCode")
+                        .HasColumnType("varchar(9)")
+                        .HasMaxLength(9);
 
                     b.HasKey("Id");
 
@@ -299,6 +375,9 @@ namespace Solucao.Application.Migrations
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
 
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime");
 
@@ -306,6 +385,9 @@ namespace Solucao.Application.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(50)")
                         .HasMaxLength(50);
+
+                    b.Property<bool>("Single")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime");

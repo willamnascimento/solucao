@@ -31,6 +31,12 @@ namespace Solucao.Application.Data.Mappings
             builder.Property(c => c.Active)
                 .HasColumnType("bit")
                 .IsRequired();
+
+            builder.Property(c => c.Single)
+                .HasColumnType("bit");
+
+            builder.Property(c => c.Amount)
+                .HasColumnType("int");
         }
     }
 }

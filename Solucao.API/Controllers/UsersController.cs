@@ -87,7 +87,7 @@ namespace Solucao.API.Controllers
 
             // Verifica se o usuário existe
             if (user == null)
-                return BadRequest(new ApplicationError { Code = "504", Message = "Senha ou usuário inválido."});
+                return NotFound(new ApplicationError { Code = "404", Message = "Senha ou usuário inválido."});
 
             // Gera o Token
             var token = tokenService.GenerateToken(user);

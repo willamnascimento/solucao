@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Solucao.Application.Contracts;
 using Solucao.Application.Data.Entities;
+using Solucao.Application.Data.Interfaces;
 using Solucao.Application.Data.Repositories;
 using Solucao.Application.Service.Interfaces;
 using System;
@@ -14,10 +15,10 @@ namespace Solucao.Application.Service.Implementations
 {
     public class ClientService : IClientService
     {
-        private ClientRepository clientRepository;
+        private IClientRepository clientRepository;
         private readonly IMapper mapper;
 
-        public ClientService(ClientRepository _clientRepository, IMapper _mapper)
+        public ClientService(IClientRepository _clientRepository, IMapper _mapper)
         {
             clientRepository = _clientRepository;
             mapper = _mapper;
@@ -43,8 +44,8 @@ namespace Solucao.Application.Service.Implementations
 
         public Task<ValidationResult> Update(ClientViewModel client)
         {
+            client.UpdatedAt = DateTime.Now;
             var _client = mapper.Map<Client>(client);
-            _client.UpdatedAt = DateTime.Now;
 
             return clientRepository.Update(_client);
         }

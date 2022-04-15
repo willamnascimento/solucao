@@ -25,8 +25,8 @@ namespace Solucao.Application.Data.Repositories
         public async Task<IEnumerable<Person>> GetAll(bool ativo, string tipo_pessoa)
         {
             if (String.IsNullOrEmpty(tipo_pessoa))
-                return await Db.People.Where(x => x.Active == ativo).ToListAsync();
-            return await Db.People.Where(x => x.Active == ativo && x.PersonType == tipo_pessoa).ToListAsync();
+                return await Db.People.Where(x => x.Active == ativo).OrderBy(x => x.PersonType).OrderBy(x => x.Name).ToListAsync();
+            return await Db.People.Where(x => x.Active == ativo && x.PersonType == tipo_pessoa).OrderBy(x => x.PersonType).OrderBy(x => x.Name).ToListAsync();
         }
 
         public async Task<IEnumerable<Person>> GetByName(string tipo_pessoa, string nome)
@@ -64,9 +64,5 @@ namespace Solucao.Application.Data.Repositories
 
         }
 
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
