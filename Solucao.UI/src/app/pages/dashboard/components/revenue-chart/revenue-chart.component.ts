@@ -17,6 +17,8 @@ export class RevenueChartComponent implements OnInit {
     this.initChart();
   }
 
+  
+
   public initChart(): void {
     this.revenueChart = {
       color: [colors.GREEN, colors.PINK, colors.YELLOW, colors.BLUE],

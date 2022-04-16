@@ -55,7 +55,7 @@ import { SpecificationsService } from 'src/app/shared/services/specifications.se
 
       if (this.form.value.id === ""){
         this.specificationService.save(this.form.value).subscribe((resp: Specification) => {
-          this.toastr.success('Especificação adicionada.');
+          this.toastr.success('Ponteira adicionada.');
           this.dialogRef.close(resp);
         },
         (err) => {
@@ -63,7 +63,7 @@ import { SpecificationsService } from 'src/app/shared/services/specifications.se
         });
       } else {
         this.specificationService.update(this.form.value).subscribe((resp: Specification) => {
-          this.toastr.success('Especificação atualizada.');
+          this.toastr.success('Ponteira atualizada.');
           this.dialogRef.close(resp);
         },
         (err) => {
