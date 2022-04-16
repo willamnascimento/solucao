@@ -55,7 +55,7 @@
                 <th class="calendar-table__table-header" mat-header-cell *matHeaderCellDef > STATUS </th>
                 <td class="calendar-table__table-body" mat-cell *matCellDef="let element">
                     <div class="calendar-table__content-badge" [ngClass]="element.status">
-                            
+                            {{statusToString(element.status)}}
                       </div>
                 </td>
             </ng-container>

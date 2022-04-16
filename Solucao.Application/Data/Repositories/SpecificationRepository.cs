@@ -27,6 +27,16 @@ namespace Solucao.Application.Data.Repositories
             return await Db.Specifications.Include(x => x.EquipamentSpecifications).ToListAsync();
         }
 
+        public async Task<Specification> GetById(Guid Id)
+        {
+            return await Db.Specifications.FindAsync(Id);
+        }
+
+        public async Task<Specification> GetSingleSpec()
+        {
+            return await Db.Specifications.FirstOrDefaultAsync(x => x.Single && x.Active);
+        }
+
         public async Task<bool> SingleIsValid(Guid? id)
         {
             if (id.HasValue)

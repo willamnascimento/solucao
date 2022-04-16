@@ -69,7 +69,7 @@ namespace Solucao.Application.Data.Repositories
 
         }
 
-        public async Task<IEnumerable<Calendar>> ValidateLease(DateTime date, Guid clientId, Guid equipamentId)
+        public async Task<IEnumerable<Calendar>> ValidateEquipament(DateTime date, Guid clientId, Guid equipamentId)
         {
             
             var sql = $"select * from Calendars where date >= '{date.ToString("yyyy-MM-dd")}' and equipamentId = '{equipamentId}' and ClientId != '{clientId}'";
@@ -77,24 +77,43 @@ namespace Solucao.Application.Data.Repositories
 
         }
 
-        public async Task<IEnumerable<Calendar>> GetCalendarBySpecificationsAndDate(List<CalendarSpecifications> list, DateTime date)
+        public async Task<IEnumerable<Calendar>> GetCalendarBySpecificationsAndDate(List<CalendarSpecifications> list, DateTime date, DateTime startTime)
         {
-            var _in = list.Select(x => x.SpecificationId);
+            var _in = In(list.Select(x => x.SpecificationId).ToList());
 
-            var a = await (from calendar in Db.Calendars
-                    join specification in Db.CalendarSpecifications on calendar.Id equals specification.CalendarId
-                    where
-                    calendar.Date == date &&
-                    _in.Contains(specification.SpecificationId)
-                    select calendar).Include(x => x.CalendarSpecifications).ToListAsync();
+            var sql = $"select distinct c.* from Calendars as c left join CalendarSpecifications as cs on " +
+                                "c.Id = cs.CalendarId " +
+                                $"where CONVERT(varchar, c.date, 112) >= '{date.ToString("yyyyMMdd")}' and ";
+            if (list.Any())
+                sql += $"cs.SpecificationId in ({_in}) and ";
 
-            return a;
+            sql += $"'{startTime.ToString("HH:mm:ss")}' >= CONVERT(varchar, c.StartTime, 108) and " +
+                                $"'{startTime.ToString("HH:mm:ss")}' <= CONVERT(varchar, c.EndTime, 108) ";
 
-
-                //.Include(x => x.CalendarSpecifications)
-                //                          .Where(x => x.Date.Date >= date.Date && x.CalendarSpecifications.Contains(_in)
-                //                                      x.Active).OrderBy(x => x.Date).ToListAsync();
+            return await Db.Calendars.FromSqlRaw(sql).ToListAsync();
         }
+
+        public async Task<int> SpecCounterBySpec(Guid specificationId, DateTime date, DateTime startTime)
+        {
+            var sql = $"select count(cs.Id) as amount from Calendars as c left join CalendarSpecifications as cs on " +
+                                "c.Id = cs.CalendarId " +
+                                $"where CONVERT(varchar, c.date, 112) >= '{date.ToString("yyyyMMdd")}' and " +
+                                $"cs.SpecificationId = '{specificationId}' and " +
+                                $"'{startTime.ToString("HH:mm:ss")}' >= CONVERT(varchar, c.StartTime, 108) and " +
+                                $"'{startTime.ToString("HH:mm:ss")}' <= CONVERT(varchar, c.EndTime, 108) ";
+            return await Db.Calendars.FromSqlRaw(sql).CountAsync();
+        }
+
+
+        public async Task<int> SingleSpecCounter(Guid specificationId, DateTime date)
+        {
+            var sql = $"select count(cs.Id) as amount from Calendars as c left join CalendarSpecifications as cs on " +
+                                "c.Id = cs.CalendarId " +
+                                $"where CONVERT(varchar, c.date, 112) >= '{date.ToString("yyyyMMdd")}' and " +
+                                $"cs.SpecificationId = '{specificationId}'";
+            return await Db.Calendars.FromSqlRaw(sql).CountAsync();
+        }
+
 
         public async Task<IEnumerable<Calendar>> Availability(DateTime startDate, DateTime endDate,  Guid? clientId, Guid? equipamentId)
         {
@@ -147,6 +166,16 @@ namespace Solucao.Application.Data.Repositories
                                           .Where(x => x.Date.Date >= startDate && x.Date.Date <= endDate && 
                                                       x.Active).OrderBy(x => x.Date).ToListAsync();
 
+        }
+
+        private string In(List<Guid> list)
+        {
+            var join = new List<string>();
+            foreach (var item in list)
+            {
+                join.Add("'" + item + "'");
+            }
+            return string.Join(",",join);
         }
 
     }
