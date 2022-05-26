@@ -26,6 +26,7 @@
   &__search {
     display: flex;
     align-items: center;
+    float: left;
   }
 
   &__icon-wrapper {
@@ -110,6 +111,7 @@
 
   &__table {
     width: 100%;
+    min-height: 250px;
   }
 
   &__table-row {
@@ -151,15 +153,19 @@
   }  
 }
 
-.confirmed {
+.Confirmada {
   background-color: $green;
 }
 
-.pending {
+.Pendente {
   background-color: $yellow;
 }
 
-.canceled {
+.Cancelada {
   background-color: $red;
+}
+
+.Excluida {
+  background-color: magenta;
 }
 

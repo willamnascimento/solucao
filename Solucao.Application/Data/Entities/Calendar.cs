@@ -17,6 +17,8 @@ namespace Solucao.Application.Data.Entities
         public Guid ClientId { get; set; }
         public string Status { get; set; }
         public bool Active { get; set; }
+        public bool NoCadastre { get; set; }
+        public string TemporaryName { get; set; }
         public DateTime Date { get; set; }
         public DateTime? StartTime { get; set; }
         public DateTime? EndTime { get; set; }

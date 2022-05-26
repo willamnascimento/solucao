@@ -23,14 +23,14 @@ namespace Solucao.Application.Contracts
         public int CityId { get; set; }
         public int StateId { get; set; }
         public bool IsPhysicalPerson { get; set; }
-        public bool IsAnnualContract { get; set; }
-        public int IsReceipt { get; set; }
+        public bool? IsAnnualContract { get; set; }
+        public int? IsReceipt { get; set; }
         public string NameForReceipt { get; set; }
-        public bool HasAirConditioning { get; set; }
-        public bool Has220V { get; set; }
-        public bool HasStairs { get; set; }
-        public bool TakeTransformer { get; set; }
-        public bool HasTechnique { get; set; }
+        public bool? HasAirConditioning { get; set; }
+        public bool? Has220V { get; set; }
+        public bool? HasStairs { get; set; }
+        public bool? TakeTransformer { get; set; }
+        public bool? HasTechnique { get; set; }
         public string TechniqueOption1 { get; set; }
         public string TechniqueOption2 { get; set; }
         public string LandMark { get; set; }
@@ -40,8 +40,11 @@ namespace Solucao.Application.Contracts
         public string ClinicCellPhone { get; set; }
         public string ZipCode { get; set; }
         public string Secretary { get; set; }
-        public string CpfCnpj { get; set; }
-        public string RgIe { get; set; }
+        public string Cpf { get; set; }
+        public string Cnpj { get; set; }
+        public string Rg { get; set; }
+        public string Ie { get; set; }
+        public string EquipamentValues { get; set; }
 
         public object City { get; set; }
         public object State { get; set; }

@@ -1,0 +1,16 @@
+<div *ngFor="let item of list">
+        <label><b>Loc: </b></label>
+        <span>{{item.noCadastre ? item.temporaryName :  item.client.name}}</span>
+        <label><b>Pont: </b></label>
+        <span>{{descriptionSpecifications(item)}}</span>
+        <label><b>Hor: </b></label>
+        <span>{{showTime(item)}} </span>
+        <label><b>Mot: </b></label>
+        <span>{{item.driver.name}}</span>
+        <label><b>Téc: </b></label>
+        <span>{{item.technique.name}} </span>
+        <label><b>OBS: </b></label>
+        <span>{{item.notes}} </span>
+        <label><b>Status: </b></label>
+        <span>{{statusToString(item.status)}}</span>
+</div>

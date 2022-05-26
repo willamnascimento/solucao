@@ -12,7 +12,6 @@ COPY "Solucao.sln" "Solucao.sln"
 COPY "Solucao.API/Solucao.API.csproj" "Solucao.API/Solucao.API.csproj"
 COPY "Solucao.Application/Solucao.Application.csproj" "Solucao.Application/Solucao.Application.csproj"
 COPY "Solucao.CrossCutting/Solucao.CrossCutting.csproj" "Solucao.CrossCutting/Solucao.CrossCutting.csproj"
-COPY "Solucao.Test/Solucao.Test.csproj" "Solucao.Test/Solucao.Test.csproj"
 
 RUN dotnet restore "Solucao.sln"
 

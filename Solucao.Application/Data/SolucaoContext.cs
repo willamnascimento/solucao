@@ -19,6 +19,7 @@ namespace Solucao.Application.Data
         {
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
             ChangeTracker.AutoDetectChangesEnabled = false;
+            ChangeTracker.LazyLoadingEnabled = true;
         }
 
         public DbSet<User> Users { get; set; }
@@ -31,6 +32,7 @@ namespace Solucao.Application.Data
         public DbSet<EquipamentSpecifications> EquipamentSpecifications { get; set; }
         public DbSet<Calendar> Calendars { get; set; }
         public DbSet<CalendarSpecifications> CalendarSpecifications { get; set; }
+        public DbSet<StickyNote> StickyNotes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -45,6 +47,7 @@ namespace Solucao.Application.Data
             modelBuilder.ApplyConfiguration(new EquipamentMapping());
             modelBuilder.ApplyConfiguration(new CalendarMapping());
             modelBuilder.ApplyConfiguration(new CalendarSpecificationsMapping());
+            modelBuilder.ApplyConfiguration(new StickyNoteMapping());
 
 
             // Relationship
@@ -58,6 +61,9 @@ namespace Solucao.Application.Data
 
             modelBuilder.Entity<Client>()
                 .HasOne(e => e.State);
+
+            modelBuilder.Entity<StickyNote>()
+                .HasOne(e => e.User);
 
             modelBuilder.Entity<Client>()
                 .HasOne(e => e.City);
@@ -76,10 +82,6 @@ namespace Solucao.Application.Data
 
             modelBuilder.Entity<Calendar>()
                 .HasOne(e => e.User);
-
-            //modelBuilder.Entity<Calendar>()
-            //   .HasMany(c => c.CalendarSpecifications)
-            //   .WithOne(e => e.Calendar);
 
             modelBuilder.Entity<Specification>()
                .HasMany(c => c.CalendarSpecifications)

@@ -156,7 +156,7 @@ namespace Solucao.Application.Service.Implementations
                     // Valida se a ponteira/especificação é unica
                     if (specifications.Any())
                     {
-                        var valid = await ValidIfSpecInUse(specifications, date);
+                        var valid = await ValidIfSpecInUse(temp, date);
                         if (!valid)
                             return new ValidationResult($"Para data e hora informada, dispositivo ÚNICO está em uso.");
 

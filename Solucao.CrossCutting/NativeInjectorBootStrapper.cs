@@ -24,12 +24,14 @@ namespace Solucao.CrossCutting
             services.AddScoped<ISpecificationService, SpecificationService>();
             services.AddScoped<IEquipamentService, EquipamentService>();
             services.AddScoped<ICalendarService, CalendarService>();
+            services.AddScoped<IStickyNoteService, StickyNoteService>();
             services.AddScoped<TokenService>();
 
             // Infra
             services.AddScoped<UserRepository>();
             services.AddScoped<IPersonRepository,PersonRepository>();
             services.AddScoped<IClientRepository,ClientRepository>();
+            services.AddScoped<IStickyNoteRepository, StickyNoteRepository>();
             services.AddScoped<StateRepository>();
             services.AddScoped<CityRepository>();
             services.AddScoped<SpecificationRepository>();

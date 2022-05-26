@@ -1,0 +1,20 @@
+<table class="sticky-notes-table__table" mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="anotacao">
+        <th class="sticky-notes-table__table-header" mat-header-cell *matHeaderCellDef > ANOTAÇÃO </th>
+        <td class="sticky-notes-table__table-body"  mat-cell *matCellDef="let element">{{element.notes}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="resolvido" >
+        <th class="sticky-notes-table__table-header" mat-header-cell *matHeaderCellDef >RESOLVIDO? </th>
+        <td class="sticky-notes-table__table-body" mat-cell *matCellDef="let element"> {{element.resolved ? 'Sim' : 'Não'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="acoes" >
+        <th class="sticky-notes-table__table-header" mat-header-cell *matHeaderCellDef >AÇÕES </th>
+        <td class="sticky-notes-table__table-body" mat-cell *matCellDef="let element"> {{element.resolved ? 'Sim' : 'Não'}} </td>
+    </ng-container>
+    
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+    </tr>
+</table>

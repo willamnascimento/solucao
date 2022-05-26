@@ -1,3 +1,6 @@
+import { CalendarItemComponent } from './components/calendar-item/calendar-item.component';
+import { StickyNotesService } from './../../shared/services/sticky-notes.service';
+import { StickyNotesTableComponent } from './components/sticky-notes-table/sticky-notes-table.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -25,6 +28,8 @@ import { TextMaskModule } from 'angular2-text-mask';
       CalendarPageComponent,
       CalendarTableComponent,
       CalendarDialogComponent,
+      StickyNotesTableComponent,
+      CalendarItemComponent
   ],
   imports: [
     CommonModule,
@@ -45,7 +50,8 @@ import { TextMaskModule } from 'angular2-text-mask';
     NgxMaskModule.forChild(),
   ],
   providers: [
-    CalendarService
+    CalendarService,
+    StickyNotesService
   ]
 })
 export class CalendarModule { }

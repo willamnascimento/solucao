@@ -17,14 +17,13 @@ namespace Solucao.Application.Data.Mappings
                 .HasColumnName("Id");
 
             builder.Property(c => c.Name)
-                .HasColumnType("varchar(50)")
+                .HasColumnType("varchar(200)")
                 .HasMaxLength(50)
                 .IsRequired();
 
             builder.Property(c => c.CellPhone)
                 .HasColumnType("varchar(15)")
-                .HasMaxLength(10)
-                .IsRequired();
+                .HasMaxLength(10);
 
             builder.Property(c => c.CreatedAt)
                 .HasColumnType("datetime")
@@ -40,13 +39,11 @@ namespace Solucao.Application.Data.Mappings
 
             builder.Property(c => c.Phone)
                 .HasColumnType("varchar(14)")
-                .HasMaxLength(14)
-                .IsRequired();
+                .HasMaxLength(14);
 
             builder.Property(c => c.Email)
                 .HasColumnType("varchar(50)")
-                .HasMaxLength(50)
-                .IsRequired();
+                .HasMaxLength(50);
 
             builder.Property(c => c.Address)
                 .HasColumnType("varchar(70)")
@@ -59,7 +56,7 @@ namespace Solucao.Application.Data.Mappings
                 .IsRequired();
 
             builder.Property(c => c.Complement)
-                .HasColumnType("varchar(30)")
+                .HasColumnType("varchar(50)")
                 .HasMaxLength(30);
 
             builder.Property(c => c.CityId)
@@ -71,7 +68,7 @@ namespace Solucao.Application.Data.Mappings
                 .IsRequired();
 
             builder.Property(c => c.Neighborhood)
-                .HasColumnType("varchar(30)")
+                .HasColumnType("varchar(50)")
                 .HasMaxLength(30);
 
             builder.Property(c => c.IsPhysicalPerson)
@@ -80,12 +77,13 @@ namespace Solucao.Application.Data.Mappings
             builder.Property(c => c.IsAnnualContract)
                 .HasColumnType("bit");
 
+
             builder.Property(c => c.IsReceipt)
-                .HasColumnType("bit");
+                .HasColumnType("int");
 
             builder.Property(c => c.NameForReceipt)
-                .HasColumnType("varchar(30)")
-                .HasMaxLength(30);
+                .HasColumnType("varchar(100)")
+                .HasMaxLength(100);
 
             builder.Property(c => c.HasAirConditioning)
                 .HasColumnType("bit");
@@ -111,24 +109,24 @@ namespace Solucao.Application.Data.Mappings
                 .HasMaxLength(30);
 
             builder.Property(c => c.LandMark)
-                .HasColumnType("varchar(30)")
-                .HasMaxLength(30);
+                .HasColumnType("varchar(100)")
+                .HasMaxLength(100);
 
             builder.Property(c => c.Responsible)
-                .HasColumnType("varchar(30)")
-                .HasMaxLength(30);
+                .HasColumnType("varchar(100)")
+                .HasMaxLength(70);
 
             builder.Property(c => c.Specialty)
-                .HasColumnType("varchar(30)")
-                .HasMaxLength(30);
+                .HasColumnType("varchar(200)")
+                .HasMaxLength(200);
 
             builder.Property(c => c.ClinicCellPhone)
                 .HasColumnType("varchar(15)")
                 .HasMaxLength(15);
 
             builder.Property(c => c.ClinicName)
-                .HasColumnType("varchar(30)")
-                .HasMaxLength(30);
+                .HasColumnType("varchar(200)")
+                .HasMaxLength(50);
 
             builder.Property(c => c.ZipCode)
                 .HasColumnType("varchar(9)")
@@ -138,13 +136,25 @@ namespace Solucao.Application.Data.Mappings
                 .HasColumnType("varchar(30)")
                 .HasMaxLength(30);
 
-            builder.Property(c => c.CpfCnpj)
+            builder.Property(c => c.Cpf)
+                .HasColumnType("varchar(14)")
+                .HasMaxLength(14);
+
+            builder.Property(c => c.Cnpj)
                 .HasColumnType("varchar(18)")
                 .HasMaxLength(18);
 
-            builder.Property(c => c.RgIe)
+            builder.Property(c => c.Rg)
                 .HasColumnType("varchar(20)")
                 .HasMaxLength(20);
+
+            builder.Property(c => c.Ie)
+                .HasColumnType("varchar(20)")
+                .HasMaxLength(20);
+
+            builder.Property(c => c.EquipamentValues)
+                .HasColumnType("varchar(1500)")
+                .HasMaxLength(1500);
 
         }
     }

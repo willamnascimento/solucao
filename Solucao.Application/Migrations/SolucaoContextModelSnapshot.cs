@@ -47,6 +47,9 @@ namespace Solucao.Application.Migrations
                     b.Property<Guid>("EquipamentId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool>("NoCadastre")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Note")
                         .HasColumnType("varchar(100)");
 
@@ -62,6 +65,9 @@ namespace Solucao.Application.Migrations
 
                     b.Property<Guid?>("TechniqueId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("TemporaryName")
+                        .HasColumnType("varchar(50)");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime");
@@ -149,7 +155,6 @@ namespace Solucao.Application.Migrations
                         .HasMaxLength(70);
 
                     b.Property<string>("CellPhone")
-                        .IsRequired()
                         .HasColumnType("varchar(15)")
                         .HasMaxLength(10);
 
@@ -161,61 +166,72 @@ namespace Solucao.Application.Migrations
                         .HasMaxLength(15);
 
                     b.Property<string>("ClinicName")
-                        .HasColumnType("varchar(30)")
-                        .HasMaxLength(30);
+                        .HasColumnType("varchar(200)")
+                        .HasMaxLength(50);
 
-                    b.Property<string>("Complement")
-                        .HasColumnType("varchar(30)")
-                        .HasMaxLength(30);
-
-                    b.Property<string>("CpfCnpj")
+                    b.Property<string>("Cnpj")
                         .HasColumnType("varchar(18)")
                         .HasMaxLength(18);
+
+                    b.Property<string>("Complement")
+                        .HasColumnType("varchar(50)")
+                        .HasMaxLength(30);
+
+                    b.Property<string>("Cpf")
+                        .HasColumnType("varchar(14)")
+                        .HasMaxLength(14);
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("varchar(50)")
                         .HasMaxLength(50);
 
-                    b.Property<bool>("Has220V")
+                    b.Property<string>("EquipamentValues")
+                        .HasColumnType("varchar(1500)")
+                        .HasMaxLength(1500);
+
+                    b.Property<bool?>("Has220V")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("HasAirConditioning")
+                    b.Property<bool?>("HasAirConditioning")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("HasStairs")
+                    b.Property<bool?>("HasStairs")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("HasTechnique")
+                    b.Property<bool?>("HasTechnique")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsAnnualContract")
+                    b.Property<string>("Ie")
+                        .HasColumnType("varchar(20)")
+                        .HasMaxLength(20);
+
+                    b.Property<bool?>("IsAnnualContract")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsPhysicalPerson")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsReceipt")
-                        .HasColumnType("bit");
+                    b.Property<int?>("IsReceipt")
+                        .HasColumnType("int");
 
                     b.Property<string>("LandMark")
-                        .HasColumnType("varchar(30)")
-                        .HasMaxLength(30);
+                        .HasColumnType("varchar(100)")
+                        .HasMaxLength(100);
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("varchar(50)")
+                        .HasColumnType("varchar(200)")
                         .HasMaxLength(50);
 
                     b.Property<string>("NameForReceipt")
-                        .HasColumnType("varchar(30)")
-                        .HasMaxLength(30);
+                        .HasColumnType("varchar(100)")
+                        .HasMaxLength(100);
 
                     b.Property<string>("Neighborhood")
-                        .HasColumnType("varchar(30)")
+                        .HasColumnType("varchar(50)")
                         .HasMaxLength(30);
 
                     b.Property<string>("Number")
@@ -224,15 +240,14 @@ namespace Solucao.Application.Migrations
                         .HasMaxLength(15);
 
                     b.Property<string>("Phone")
-                        .IsRequired()
                         .HasColumnType("varchar(14)")
                         .HasMaxLength(14);
 
                     b.Property<string>("Responsible")
-                        .HasColumnType("varchar(30)")
-                        .HasMaxLength(30);
+                        .HasColumnType("varchar(10)")
+                        .HasMaxLength(70);
 
-                    b.Property<string>("RgIe")
+                    b.Property<string>("Rg")
                         .HasColumnType("varchar(20)")
                         .HasMaxLength(20);
 
@@ -241,13 +256,13 @@ namespace Solucao.Application.Migrations
                         .HasMaxLength(30);
 
                     b.Property<string>("Specialty")
-                        .HasColumnType("varchar(30)")
-                        .HasMaxLength(30);
+                        .HasColumnType("varchar(200)")
+                        .HasMaxLength(200);
 
                     b.Property<int>("StateId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("TakeTransformer")
+                    b.Property<bool?>("TakeTransformer")
                         .HasColumnType("bit");
 
                     b.Property<string>("TechniqueOption1")
@@ -420,6 +435,42 @@ namespace Solucao.Application.Migrations
                     b.ToTable("States");
                 });
 
+            modelBuilder.Entity("Solucao.Application.Data.Entities.StickyNote", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<bool>("Resolved")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("StickyNotes");
+                });
+
             modelBuilder.Entity("Solucao.Application.Data.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -545,6 +596,15 @@ namespace Solucao.Application.Migrations
                     b.HasOne("Solucao.Application.Data.Entities.Specification", "Specification")
                         .WithMany("EquipamentSpecifications")
                         .HasForeignKey("SpecificationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Solucao.Application.Data.Entities.StickyNote", b =>
+                {
+                    b.HasOne("Solucao.Application.Data.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -27,18 +27,30 @@ div.mat-dialog-content {
   height: 450px !important;
 }
 
-@media (max-width: 700px)
-{
-  mat-card.mat-card
-   {
-    min-height: 400px !important;
-   }
+.margin-left-5 {
+  margin-left: 5px;
 }
 
-@media (min-width: 1200px)
-{
-  mat-card.mat-card
-   {
-    min-height: 750px !important;
-   }
+.margin-right-5 {
+  margin-right: 5px;
 }
+
+.margin-top-10 {
+  margin-top: 10px;
+}
+
+// @media (max-width: 700px)
+// {
+//   mat-card.mat-card
+//    {
+//     min-height: 400px !important;
+//    }
+// }
+
+// @media (min-width: 1200px)
+// {
+//   mat-card.mat-card
+//    {
+//     min-height: 750px !important;
+//    }
+// }

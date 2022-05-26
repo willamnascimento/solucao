@@ -1,3 +1,6 @@
+import { filter } from 'rxjs/operators';
+import { Equipament } from './../../../../shared/models/equipament';
+import { EquipamentsService } from './../../../../shared/services/equipaments.service';
 import { ToastrService } from 'ngx-toastr';
 import { SpecificationsService } from 'src/app/shared/services/specifications.service';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -29,12 +32,11 @@ import { MY_FORMATS } from 'src/app/consts/my-format';
     
     displayedColumns: string[] = ['equipamento', 'locatario', 'horario', 'tecnica', 'motorista','usuario','status','obs'];
     @ViewChild('inputSearch') inputSearch: ElementRef;
-    dataSource: MatTableDataSource<Calendar> = new MatTableDataSource<Calendar>();
-    selection = new SelectionModel<Calendar>(true, []);
-    selectedTabIndex = 0;
+    dataSource: Calendar[];
     isShowFilterInput = false;
     currentDate = new Date();
     specificationArray: Specification[];
+    equipamentArray: Equipament[];
     time;
     value;
     todayDate;
@@ -44,6 +46,7 @@ import { MY_FORMATS } from 'src/app/consts/my-format';
     constructor(private calendarService: CalendarService,
                 public dialog: MatDialog,
                 private specificationSerivce: SpecificationsService,
+                private equipamentService: EquipamentsService,
                 private toastrService: ToastrService) {
       this.time = moment();
     }
@@ -54,6 +57,7 @@ import { MY_FORMATS } from 'src/app/consts/my-format';
 
     closeFilterInput(): void {
       this.time = moment(new Date(), 'DD/MM/YYYY', true);
+      this.inputSearch.nativeElement.value = '';
       this.getCalendars();
     }
 
@@ -77,7 +81,8 @@ import { MY_FORMATS } from 'src/app/consts/my-format';
 
     ngOnInit(): void {
       this.getCalendars();
-      this.loadSpecifications()
+      this.getEquipament();
+      this.loadSpecifications();
     }
 
     async loadSpecifications(): Promise<void> {
@@ -90,15 +95,26 @@ import { MY_FORMATS } from 'src/app/consts/my-format';
     getCalendars(): void{
       let date = this.time.format('YYYY-MM-DD');
       this.calendarService.getCalendarByDay(date).subscribe((resp: Calendar[]) => {
-        this.dataSource = new MatTableDataSource<Calendar>();
-        this.dataSource = new MatTableDataSource<Calendar>(resp);
+        this.dataSource = resp;
       });
+    }
+
+    getEquipament(): void {
+      this.equipamentService.loadEquipaments(true).subscribe((resp: Equipament[]) => {
+        this.equipamentArray = resp;
+      });
+      
+    }
+
+    filterItemsByEquipament(item: Equipament): Calendar[] {
+      return this.dataSource.filter(x => x.equipamentId === item.id);
     }
 
     openDialog(element: Calendar){
       const dialogRef = this.dialog.open(CalendarDialogComponent, {
         width: '700px',
         height: '600px',
+        disableClose: true,
         data: {element}
       });
   
@@ -136,10 +152,12 @@ import { MY_FORMATS } from 'src/app/consts/my-format';
     statusToString(status){
       let ret = 'Confirmada';
 
-      if (status == 'pending'){
+      if (status === '2'){
         ret = 'Pendente';
-      }else if (status == 'canceled'){
+      }else if (status === '3'){
         ret = 'Cancelada';
+      }else if (status === '4'){
+        ret = 'Excluida';
       }
 
       return ret;

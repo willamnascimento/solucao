@@ -23,8 +23,6 @@ import * as _moment from 'moment';
 import {default as _rollupMoment} from 'moment';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
-import { format } from 'path';
-import { stat } from 'fs';
 import { MY_FORMATS } from 'src/app/consts/my-format';
 
 const moment = _rollupMoment || _moment;
@@ -38,7 +36,7 @@ const moment = _rollupMoment || _moment;
       {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
     ],
   })
-  export class CalendarDialogComponent {
+  export class CalendarDialogComponent implements AfterViewInit{
     
     form: FormGroup;
     isAddMode: boolean;
@@ -54,6 +52,7 @@ const moment = _rollupMoment || _moment;
     notFound = false;
     todayDate;
     inputReadonly = false;
+    semCadastro = false;
 
     constructor(
       public dialogRef: MatDialogRef<CalendarDialogComponent>,
@@ -68,15 +67,27 @@ const moment = _rollupMoment || _moment;
       private cdr: ChangeDetectorRef) {
         this.todayDate = new Date();
         this.readOnly();
+
     }
 
     readOnly(): void{
       const data = this.data.element?.date;
+      
       if (data !== undefined){
-        if (moment(data) < this.todayDate){
+        if (moment(data,'YYYY-MM-DD').valueOf() < moment(this.todayDate,'DD-MM-YYYY').valueOf()){
           this.inputReadonly = true;
         }
       }
+    }
+
+    ngAfterViewInit(): void {
+      setTimeout(() => {
+        this.ajustesCSS();
+      },500);
+    }
+
+    noCadastre(): void{
+      this.semCadastro = !this.semCadastro;
     }
 
     onChanges(){
@@ -111,12 +122,12 @@ const moment = _rollupMoment || _moment;
     }
 
     ngOnInit(): void {
-      this.ajustesCSS();
       this.getPeople();
       this.getEquipaments();
       this.getSpecifications();
       this.createForm();
       this.onChanges();
+      console.log(this.form.value.techniqueId);
     }
 
     createForm(): void {
@@ -144,20 +155,24 @@ const moment = _rollupMoment || _moment;
         createdAt: [this.data.element?.createdAt || new Date()],
         updatedAt: [this.data.element?.updatedsAt || null],
         client: this.inputReadonly ? [{value: this.data.element?.client, disabled: true }] : [this.data.element?.client,Validators.required],
-        clientId: [this.data.element?.clientId],
-        driverId: [this.data.element?.driverId],
-        techniqueId: [this.data.element?.techniqueId],
+        clientId: this.inputReadonly ? [{value: this.data.element?.clientId, disabled: true}] : [{value: this.data.element?.clientId, disabled: false}],
+        driverId: this.inputReadonly ? [{value: this.data.element?.driverId, disabled: true}] : [{value: this.data.element?.driverId, disabled: false}],
+        techniqueId: this.inputReadonly ? [{value: this.data.element?.techniqueId, disabled: true}] : [{value: this.data.element?.techniqueId, disabled: false}],
         active: [true],
+        noCadastre: this.inputReadonly ? [{value: this.data.element?.noCadastre || false, disabled: true}] : [{value: this.data.element?.noCadastre || false, disabled: false}],
         note: this.inputReadonly ? [{value: this.data.element?.note, disabled: true}] : [this.data.element?.note],
         userId: [this.data.element?.userId],
         parentId: [this.data.element?.parentId],
-        date: [this.data.element?.date || null,Validators.required],
+        date: this.inputReadonly ? [{value: this.data.element?.date || null,disabled: true},Validators.required] : [{value: this.data.element?.date || null, disabled: false},Validators.required],
         startTime1:this.inputReadonly ? [{value: this.data.element?.startTime.substring(11,16), disabled: true}] : [this.data.element?.startTime.substring(11,16) || null,Validators.required],
         endTime1: this.inputReadonly ? [{value: this.data.element?.endTime.substring(11,16), disabled: true}] : [this.data.element?.endTime.substring(11,16) || null,Validators.required],
-        status: [this.data.element?.status || null],
-        equipamentId: [this.data.element?.equipamentId || null ,Validators.required],
-        calendarSpecifications: this.formBuilder.array(this.data.element?.calendarSpecifications ? array : [])
+        status: this.inputReadonly ? [{value: this.data.element?.status || '2', disabled: true}] : [{value: this.data.element?.status || '2', disabled: false}],
+        equipamentId: this.inputReadonly ?  [{value: this.data.element?.equipamentId || null, disabled: true} ,Validators.required] : [{value: this.data.element?.equipamentId || null, disabled: false} ,Validators.required],
+        temporaryName: this.inputReadonly ? [{value: this.data.element?.temporaryName, disabled: true}] : [{value: this.data.element?.temporaryName, disabled: false}],
+        calendarSpecifications:  this.formBuilder.array(this.data.element?.calendarSpecifications ? array : [])
       });
+      this.semCadastro = this.form.value.noCadastre;
+      
     } 
 
     buildCalendarSpecifications(equipamentSpecification: EquipamentSpecifications){
@@ -235,6 +250,7 @@ const moment = _rollupMoment || _moment;
     }
 
     ajustesCSS(){
+      document.getElementsByClassName("mat-form-field-outline-thick")[0].setAttribute("style","width: 95%");
       var mat_select = document.getElementsByClassName('mat-select');
       for (var i = 0; i < mat_select.length; i++) {
         mat_select[i].setAttribute('style', 'display: contents');

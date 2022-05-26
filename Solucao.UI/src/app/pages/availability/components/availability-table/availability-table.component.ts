@@ -57,13 +57,7 @@ import { of } from 'rxjs';
     ngOnInit(): void {
       this.loadSpecifications();
       this.getEquipaments();
-      let startDate = '2022-01-01';
-      let endDate = '2022-06-30';
-
-      this.calendarService.availability(startDate,endDate,'','').subscribe((resp: Calendar[]) => {
-        this.dataSource = new MatTableDataSource<Calendar>();
-        this.dataSource = new MatTableDataSource<Calendar>(resp);
-      });
+      
 
       this.form = this.formBuilder.group({
         startDate: [null],

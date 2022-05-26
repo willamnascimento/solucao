@@ -30,7 +30,7 @@ namespace Solucao.Application.Data.Repositories
                                          .Include(x => x.Technique)
                                          .Include(x => x.User)
                                          .Include(x => x.CalendarSpecifications)
-                                         .Where(x => x.Date.Date == date && x.Active).OrderBy(x => x.Client.Name).ToListAsync();
+                                         .Where(x => x.Date.Date == date && x.Active).OrderBy(x => x.Status).ToListAsync();
 
         }
 
@@ -72,7 +72,7 @@ namespace Solucao.Application.Data.Repositories
         public async Task<IEnumerable<Calendar>> ValidateEquipament(DateTime date, Guid clientId, Guid equipamentId)
         {
             
-            var sql = $"select * from Calendars where date >= '{date.ToString("yyyy-MM-dd")}' and equipamentId = '{equipamentId}' and ClientId != '{clientId}'";
+            var sql = $"select * from Calendars where date >= '{date.ToString("yyyy-MM-dd")}' and equipamentId = '{equipamentId}' and ClientId != '{clientId}' status <> '3' and status <> '4'";
             return await Db.Calendars.FromSqlRaw(sql).ToListAsync();
 
         }

@@ -57,6 +57,12 @@ namespace Solucao.Application.Data.Mappings
             builder.Property(c => c.Status)
                 .HasColumnType("varchar(20)")
                 .IsRequired();
+
+            builder.Property(c => c.NoCadastre)
+                .HasColumnType("bit");
+
+            builder.Property(c => c.TemporaryName)
+                .HasColumnType("varchar(50)");
         }
     }
 }

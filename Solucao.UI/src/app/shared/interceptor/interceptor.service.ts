@@ -47,14 +47,17 @@ export class Interceptor implements HttpInterceptor {
         }else if (error.status === 504 && error.url.match(this.urlIsLogin)){
           this.toastr.error('Houve erro de comunicação com o servidor! Contate o administrador!');
         }else if (error.status === 504){
-          this.router.navigate([this.routers.LOGIN]).then();
-          this.toastr.error('Faça o login novamente');
+          // this.router.navigate([this.routers.LOGIN]).then();
+          // this.toastr.error('Faça o login novamente');
+          console.log(error);
+          this.toastr.error('erro!');
         }else if (error.status === 500){
           this.toastr.error('Houve erro de comunicação com o servidor! Contate o administrador!');
         }else if (error.status === 401 || error.status === 403 || error.status === 0) {
           this.router.navigate([this.routers.LOGIN]).then();
           this.toastr.error('Faça o login novamente');
-          this.removeDialog();
+          console.log(error);
+           this.removeDialog();
         }
         // this.spinnerService.hide();
         return throwError(error);

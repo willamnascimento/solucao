@@ -21,7 +21,6 @@ export class ClientsTableComponent implements OnInit {
   public dataSource: MatTableDataSource<Client> = new MatTableDataSource<Client>();
   public selection = new SelectionModel<Client>(true, []);
   public selectedTabIndex = 0;
-  public isShowFilterInput = false;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild('tabGroup') tabGroup;
@@ -56,8 +55,13 @@ export class ClientsTableComponent implements OnInit {
     }
   }
 
-  showFilterInput(): void {
-    this.isShowFilterInput = !this.isShowFilterInput;
+  closeFilterInput(): void {
+    this.inputSearch.nativeElement.value = '';
+    if (this.selectedTabIndex === 0){
+      this.getClients(true,'');
+    }else{
+      this.getClients(false,'');
+    }
   }
 
 
@@ -66,6 +70,7 @@ export class ClientsTableComponent implements OnInit {
     const dialogRef = this.dialog.open(ClientsDialogComponent, {
       width: '800px',
       height: '600px',
+      disableClose: true,
       data: {element}
     });
 
@@ -78,6 +83,7 @@ export class ClientsTableComponent implements OnInit {
   }
 
   tabChanged(tab: number){
+    this.selectedTabIndex = tab;
     if (tab === 0){
       this.getClients(true,'');
     }else{
@@ -91,7 +97,6 @@ export class ClientsTableComponent implements OnInit {
       this.dataSource = new MatTableDataSource<Client>();
       this.dataSource = new MatTableDataSource<Client>(resp);
       this.dataSource.paginator = this.paginator;
-      console.log(resp);
 
     });
 

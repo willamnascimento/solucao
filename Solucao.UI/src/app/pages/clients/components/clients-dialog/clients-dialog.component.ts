@@ -37,9 +37,9 @@ import { ClientsService } from '../../../../shared/services/clients.service';
       if (this.data.element?.cityId != null){
         setTimeout(() => {
           this.selectEstado.options.filter(item => item.value == this.data.element?.stateId)[0].select();
-          this.ajustesCSS();
         },500);
-      }   
+      }
+      this.ajustesCSS();
     }
 
     ngOnInit(): void {
@@ -49,36 +49,40 @@ import { ClientsService } from '../../../../shared/services/clients.service';
       this.form = this.formBuilder.group({
         id:  [this.data.element?.id || ''],
         name: [this.data.element?.name || '', Validators.required],
-        responsible: [this.data.element?.responsible || '', Validators.required],
-        specialty: [this.data.element?.specialty || '', Validators.required],
-        clinicName: [this.data.element?.clinicName || '', Validators.required],
+        responsible: [this.data.element?.responsible || ''],
+        specialty: [this.data.element?.specialty || ''],
+        clinicName: [this.data.element?.clinicName || ''],
         landMark: [this.data.element?.landMark || ''],
-        zipCode: [this.data.element?.zipCode || '', Validators.required],
-        neighborhood: [this.data.element?.neighborhood || '', Validators.required],
-        cellPhone: [this.data.element?.cellPhone || '', Validators.required],
+        zipCode: [this.data.element?.zipCode || ''],
+        neighborhood: [this.data.element?.neighborhood || ''],
+        cellPhone: [this.data.element?.cellPhone || ''],
         clinicCellPhone: [this.data.element?.clinicCellPhone || ''],
-        phone: [this.data.element?.phone || '', Validators.required],
+        phone: [this.data.element?.phone || ''],
         active: [this.data.element?.active || true, Validators.required],
         createdAt: [this.data.element?.createdAt || new Date()],
         updatedAt: [this.data.element?.updatedsAt || null],
         email: [this.data.element?.email || null],
         address: [this.data.element?.address || '', Validators.required],
         number: [this.data.element?.number || '', Validators.required],
-        cpfCnpj: [this.data.element?.cpfCnpj || '', Validators.required],
-        rgIe: [this.data.element?.rgIe || '', Validators.required],
+        cnpj: [this.data.element?.cnpj || ''],
+        ie: [this.data.element?.ie || ''],
+        cpf: [this.data.element?.cpf || ''],
+        rg: [this.data.element?.rg || ''],
+        secretary: [this.data.element?.secretary || ''],
         complement: [this.data.element?.complement || ''],
         cityId: [this.data.element?.cityId || '', Validators.required],
         stateId: [this.data.element?.stateId || '', Validators.required],
-        isAnnualContract: [this.data.element?.isAnnualContract || '', Validators.required],
-        isReceipt: [this.data.element?.isReceipt || 0],
-        hasAirConditioning: [this.data.element?.hasAirConditioning || false],
+        isAnnualContract: [this.data.element?.isAnnualContract],
+        isReceipt: [this.data.element?.isReceipt],
+        hasAirConditioning: [this.data.element?.hasAirConditioning],
         nameForReceipt: [this.data.element?.nameForReceipt || ''],
-        takeTransformer: [this.data.element?.takeTransformer || false],
-        has220V: [this.data.element?.has220V || false],
-        hasStairs: [this.data.element?.hasStairs || false],
-        hasTechnique: [this.data.element?.hasTechnique || false],
+        takeTransformer: [this.data.element?.takeTransformer],
+        has220V: [this.data.element?.has220V],
+        hasStairs: [this.data.element?.hasStairs],
+        hasTechnique: [this.data.element?.hasTechnique],
         techniqueOption1: [this.data.element?.techniqueOption1 || ''],
         techniqueOption2: [this.data.element?.techniqueOption2 || ''],
+        equipamentValues: [this.data.element?.equipamentValues || '']
       });
       this.isPhysicalPerson = this.data.element? this.data.element.isPhysicalPerson : false;
     }
@@ -121,6 +125,8 @@ import { ClientsService } from '../../../../shared/services/clients.service';
 
     ajustesCSS(){
       var mat_select = document.getElementsByClassName('mat-select');
+      var mat_dialog = document.getElementsByClassName('mat-dialog-content');
+      mat_dialog[0].setAttribute('style','overflow-y: hidden');
       for (var i = 0; i < mat_select.length; i++) {
         mat_select[i].setAttribute('style', 'display: contents');
       }

@@ -72,12 +72,12 @@ namespace Solucao.API
 
             services.AddHttpClient();
 
-            var server = Configuration["DbServer"];
-            var port = Configuration["DbPort"];
-            var user = Configuration["DbUser"];
-            var password = Configuration["Password"];
-            var database = Configuration["Database"];
-            var development = Configuration["Development"];
+            var server = Environment.GetEnvironmentVariable("DbServer");
+            var port = Environment.GetEnvironmentVariable("DbPort");
+            var user = Environment.GetEnvironmentVariable("DbUser");
+            var password = Environment.GetEnvironmentVariable("Password");
+            var database = Environment.GetEnvironmentVariable("Database");
+            var development = Environment.GetEnvironmentVariable("Development");
             string connectionString = string.Empty;
 
             if (development == "True")
@@ -85,7 +85,7 @@ namespace Solucao.API
             else
                 connectionString = $"Server={server}, {port};Initial Catalog={database};User ID={user};Password={password}";
 
-            //Console.WriteLine("************" + connectionString + "************");
+            Console.WriteLine("************" + connectionString + "************");
             services.AddDbContext<SolucaoContext>(options =>
                 options.UseSqlServer(connectionString));
         }

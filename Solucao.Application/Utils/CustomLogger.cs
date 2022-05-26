@@ -36,12 +36,27 @@ namespace Solucao.Application.Utils
 
         private void WriteTextInFile(string message)
         {
-            string path = @"c:\dados\log.txt";
-            using (StreamWriter streamWriter = new StreamWriter(path,true) )
+            try
             {
-                streamWriter.WriteLine(message);
-                streamWriter.Close();
+                var today = DateTime.Now.ToString("yyyy-MM-dd");
+                var path = Environment.GetEnvironmentVariable("LogPath");
+
+                string fullPath = $"{path}\\log{today}.txt";
+
+                if (!File.Exists(fullPath))
+                    File.Create(fullPath);
+
+                using (StreamWriter streamWriter = new StreamWriter(fullPath, true))
+                {
+                    streamWriter.WriteLine(message);
+                    streamWriter.Close();
+                }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+           
         }
     }
 }
