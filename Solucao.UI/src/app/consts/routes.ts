@@ -12,6 +12,7 @@ export enum routes {
   LOGIN = '/login',
   PEOPLE = '/pessoas',
   CLIENTS = '/clientes',
-  CALENDAR = '/agenda'
+  CALENDAR = '/agenda',
+  USER = '/usuario',
 
 }

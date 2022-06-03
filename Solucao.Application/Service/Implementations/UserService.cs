@@ -48,7 +48,7 @@ namespace Solucao.Application.Service.Implementations
         {
                 user.UpdatedAt = DateTime.Now;
 
-                return userRepository.Update(user, id);
+                return userRepository.Update(user);
         }
 
         public async Task<UserViewModel> Authenticate(string email, string password)
@@ -70,6 +70,20 @@ namespace Solucao.Application.Service.Implementations
         public async Task<UserViewModel> GetByName(string Name)
         {
             return mapper.Map<UserViewModel>(await userRepository.GetByName(Name));
+        }
+
+        public async Task<ValidationResult> ChangeUserPassword(UserViewModel user, string newPassword)
+        {
+            var _user = mapper.Map<User>(user);
+            _user.UpdatedAt = DateTime.Now;
+            _user.Password = mD5Service.ReturnMD5(newPassword);
+
+            return await userRepository.Update(_user);
+        }
+
+        public async Task<UserViewModel> GetByEmail(string email)
+        {
+            return mapper.Map<UserViewModel>(await userRepository.GetByEmail(email));
         }
     }
 }

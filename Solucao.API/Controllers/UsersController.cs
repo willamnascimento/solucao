@@ -14,6 +14,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Solucao.Application.Contracts.Requests;
+
 namespace Solucao.API.Controllers
 {
     [Route("api/v1")]
@@ -77,13 +79,30 @@ namespace Solucao.API.Controllers
             
         }
 
+        [HttpPost("user/change-user-password")]
+        [AllowAnonymous]
+        [SwaggerResponse((int)HttpStatusCode.OK, Type = typeof(ValidationResult))]
+        [SwaggerResponse((int)HttpStatusCode.BadRequest, Type = typeof(ApplicationError))]
+        [SwaggerResponse((int)HttpStatusCode.Conflict, Type = typeof(ApplicationError))]
+        [SwaggerResponse((int)HttpStatusCode.NotFound, Type = typeof(ApplicationError))]
+        public async Task<IActionResult> ChangeUserPassworAsync([FromBody] ChangeUserPasswordRequest model)
+        {
+            // Recupera o usuário
+            var user = await userService.GetByEmail(model.Email);
+
+            if (user == null)
+                return NotFound(new ApplicationError { Code = "404", Message = "Usuário e senha não conferem." });
+
+            return Ok(await userService.ChangeUserPassword(user,model.Password));
+        }
+
         [HttpPost]
         [Route("login")]
         [AllowAnonymous]
-        public ActionResult<dynamic> Authenticate([FromBody] User model)
+        public async Task<IActionResult> Authenticate([FromBody] User model)
         {
             // Recupera o usuário
-            var user = userService.Authenticate(model.Email, model.Password).Result;
+            var user = await userService.Authenticate(model.Email, model.Password);
 
             // Verifica se o usuário existe
             if (user == null)
@@ -93,11 +112,11 @@ namespace Solucao.API.Controllers
             var token = tokenService.GenerateToken(user);
 
             // Retorna os dados
-            return new
+            return Ok(new
             {
                 user = user,
                 token = token
-            };
+            });
         }
     }
 }

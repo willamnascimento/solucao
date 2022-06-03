@@ -38,6 +38,7 @@ namespace Solucao.Application.Data.Repositories
             return await Db.Users.FindAsync(Id);
         }
 
+
         public async Task<User> GetByName(string name)
         {
             return await Db.Users.FirstOrDefaultAsync(x => x.Name == name);
@@ -59,13 +60,12 @@ namespace Solucao.Application.Data.Repositories
         }
 
         
-        public async Task<ValidationResult> Update(User user, string id)
+        public async Task<ValidationResult> Update(User user)
         {
             try
             {
-                var _user = await DbSet.FindAsync(id);
-                DbSet.Update(_user);
-                Db.SaveChanges();
+                DbSet.Update(user);
+                await Db.SaveChangesAsync();
                 return ValidationResult.Success;
             }
             catch (Exception e)

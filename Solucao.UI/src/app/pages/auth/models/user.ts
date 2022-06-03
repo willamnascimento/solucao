@@ -7,4 +7,5 @@ export interface User {
   role: string;
   updatedAt: string;
   lastName: string;
+  password: string;
 }

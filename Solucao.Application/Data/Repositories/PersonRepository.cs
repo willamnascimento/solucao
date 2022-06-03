@@ -64,5 +64,5 @@ namespace Solucao.Application.Data.Repositories
 
         }
 
-    }
+    }   
 }

@@ -72,7 +72,7 @@ namespace Solucao.Application.Data.Repositories
         public async Task<IEnumerable<Calendar>> ValidateEquipament(DateTime date, Guid clientId, Guid equipamentId)
         {
             
-            var sql = $"select * from Calendars where date >= '{date.ToString("yyyy-MM-dd")}' and equipamentId = '{equipamentId}' and ClientId != '{clientId}' status <> '3' and status <> '4'";
+            var sql = $"select * from Calendars where date >= '{date.ToString("yyyy-MM-dd")}' and equipamentId = '{equipamentId}' and ClientId != '{clientId}' and status not in ('3','4')";
             return await Db.Calendars.FromSqlRaw(sql).ToListAsync();
 
         }

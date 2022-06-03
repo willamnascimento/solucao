@@ -1,4 +1,5 @@
 ﻿using Solucao.Application.Contracts;
+using Solucao.Application.Contracts.Requests;
 using Solucao.Application.Data.Entities;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,10 @@ namespace Solucao.Application.Service.Interfaces
 
         Task<ValidationResult> Update(User user, string id);
 
+        Task<ValidationResult> ChangeUserPassword(UserViewModel user, string newPassword);
+
         Task<UserViewModel> Authenticate(string email, string password);
+
+        Task<UserViewModel> GetByEmail(string email);
     }
 }

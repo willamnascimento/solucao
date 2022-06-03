@@ -9,6 +9,7 @@ namespace Solucao.Application.Data.Entities
     public class Equipament : BaseEntity
     {
         public string Name { get; set; }
+        public int Order { get; set; }
         public List<EquipamentSpecifications> EquipamentSpecifications { get; set; }
 
     }

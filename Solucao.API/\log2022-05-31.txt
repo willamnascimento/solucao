@@ -1,0 +1,39 @@
+05/31/2022 15:11:41 - Information: 14 - Now listening on: https://localhost:8091
+05/31/2022 15:11:41 - Information: 14 - Now listening on: http://localhost:8080
+05/31/2022 15:11:41 - Information: 0 - Application started. Press Ctrl+C to shut down.
+05/31/2022 15:11:41 - Information: 0 - Hosting environment: Development
+05/31/2022 15:11:41 - Information: 0 - Content root path: /Users/will.i.am/git/solucao/Solucao.API
+05/31/2022 19:22:31 - Information: 14 - Now listening on: https://localhost:8091
+05/31/2022 19:22:31 - Information: 14 - Now listening on: http://localhost:8080
+05/31/2022 19:22:31 - Information: 0 - Application started. Press Ctrl+C to shut down.
+05/31/2022 19:22:31 - Information: 0 - Hosting environment: Development
+05/31/2022 19:22:31 - Information: 0 - Content root path: /Users/will.i.am/git/solucao/Solucao.API
+05/31/2022 19:36:01 - Information: 14 - Now listening on: https://localhost:8091
+05/31/2022 19:36:01 - Information: 14 - Now listening on: http://localhost:8080
+05/31/2022 19:36:01 - Information: 0 - Application started. Press Ctrl+C to shut down.
+05/31/2022 19:36:01 - Information: 0 - Hosting environment: Development
+05/31/2022 19:36:01 - Information: 0 - Content root path: /Users/will.i.am/git/solucao/Solucao.API
+05/31/2022 19:40:53 - Error: 20102 - Failed executing DbCommand (176ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+select * from Calendars where date >= '2022-06-06' and equipamentId = '8f45d293-da50-4c83-a3f1-e1637e206680' and ClientId != '42d6303f-4a2c-4464-b745-0deb2d03e916' status <> '3' and status <> '4'
+05/31/2022 19:40:53 - Error: 10100 - An exception occurred while iterating over the results of a query for context type 'Solucao.Application.Data.SolucaoContext'.
+Microsoft.Data.SqlClient.SqlException (0x80131904): Incorrect syntax near 'status'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__164_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(DbContext _, Boolean result, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+ClientConnectionId:ec5c00ea-fd83-483a-83bc-baabfe3379ac
+Error Number:102,State:1,Class:15
+05/31/2022 19:40:53 - Error: 1 - An unhandled exception has occurred while executing the request.
+05/31/2022 20:25:21 - Information: 14 - Now listening on: https://localhost:8091
+05/31/2022 20:25:21 - Information: 14 - Now listening on: http://localhost:8080
+05/31/2022 20:25:21 - Information: 0 - Application started. Press Ctrl+C to shut down.
+05/31/2022 20:25:21 - Information: 0 - Hosting environment: Development
+05/31/2022 20:25:21 - Information: 0 - Content root path: /Users/will.i.am/git/solucao/Solucao.API

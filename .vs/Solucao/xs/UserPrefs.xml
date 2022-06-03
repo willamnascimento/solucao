@@ -1,0 +1,40 @@
+﻿<Properties StartupConfiguration="{D920BF05-4488-4690-BBB3-042C606B6165}|Default">
+  <MonoDevelop.Ide.ItemProperties.Solucao.API PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Solucao.API/Startup.cs">
+    <Files>
+      <File FileName="Solucao.API/Services/DatabaseManagementService.cs" Line="1" Column="1" />
+      <File FileName="Solucao.API/Program.cs" Line="16" Column="1" />
+      <File FileName="Solucao.API/Properties/launchSettings.json" Line="14" Column="29" />
+      <File FileName="Solucao.API/Startup.cs" Line="16" Column="33" />
+      <File FileName="Solucao.API/appsettings.json" Line="14" Column="17" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Solucao" expanded="True">
+            <Node name="Solucao.API" expanded="True">
+              <Node name="Properties" expanded="True" />
+            </Node>
+            <Node name="Solucao.Application" expanded="True">
+              <Node name="Data" expanded="True">
+                <Node name="Entities" expanded="True" />
+                <Node name="Mappings" expanded="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/will.i.am/git/solucao/Solucao.API/Program.cs" relfile="Solucao.API/Program.cs" line="16" column="13" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+</Properties>

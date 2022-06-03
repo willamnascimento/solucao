@@ -79,6 +79,12 @@ const routes: Routes = [
     loadChildren: () => import('./pages/availability/availability.module').then(m => m.AvailabilityModule)
   },
   {
+    path: 'usuario',
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./shared/header/components/user/user.module' ).then(m => m.UserModule)
+  },
+  {
     path: '**',
     redirectTo: '404'
   }
