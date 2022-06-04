@@ -76,7 +76,7 @@ Solucao.API/[Bb]in/
 Solucao.API/[Oo]bj/
 Solucao.API/obj/Debug/net5.0/
 **/Properties/launchSettings.json
-Solucao.API/appsettings.json
+**/appsettings.json
 
 # User-specific files
 Solucao.Application/*.suo
