@@ -15,7 +15,7 @@
       "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "DbServer": "3.225.254.252",
+        "DbServer": "",
         "DbPort": "32593",
         "DbUser": "SA",
         "Database": "SolucaoDB",
