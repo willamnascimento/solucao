@@ -26,4 +26,10 @@
     <ProjectReference Include="..\Solucao.CrossCutting\Solucao.CrossCutting.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Remove="Properties\launchsettings.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\launchSettings.json" />
+  </ItemGroup>
 </Project>
