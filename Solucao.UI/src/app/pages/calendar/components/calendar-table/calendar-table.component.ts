@@ -3,18 +3,15 @@ import { Equipament } from './../../../../shared/models/equipament';
 import { EquipamentsService } from './../../../../shared/services/equipaments.service';
 import { ToastrService } from 'ngx-toastr';
 import { SpecificationsService } from 'src/app/shared/services/specifications.service';
-import { SelectionModel } from '@angular/cdk/collections';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
-import { MatTableDataSource } from '@angular/material/table';
 import { Calendar } from 'src/app/shared/models/calendar';
 import { CalendarService } from 'src/app/shared/services/calendar.service';
 import { CalendarDialogComponent } from '../calendar-dialog/calendar-dialog.component';
 import moment from 'moment';
 import { Specification } from 'src/app/shared/models/specification';
-import { noop } from 'rxjs';
 import { MY_FORMATS } from 'src/app/consts/my-format';
 
 

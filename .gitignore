@@ -59,6 +59,10 @@ baseline.json
 
 publish/
 
+*.ldf
+*.mdf
+*.bak
+
 # User-specific files
 Solucao.API/*.suo
 Solucao.API/*.user
@@ -71,6 +75,8 @@ Solucao.API/x64/
 Solucao.API/[Bb]in/
 Solucao.API/[Oo]bj/
 Solucao.API/obj/Debug/net5.0/
+Solucao.API/Properties/
+Solucao.API/appsettings.json
 
 # User-specific files
 Solucao.Application/*.suo

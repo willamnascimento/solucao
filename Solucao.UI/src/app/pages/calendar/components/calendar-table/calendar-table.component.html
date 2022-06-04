@@ -4,8 +4,6 @@
         
         <div class="row">
             <div class="calendar-table-wrapper__search">
-            
-                <!-- <input matInput class="calendar-table-wrapper__search-input" mask="00/00/0000"  #inputSearch (keyup)="applyFilter($event)"> -->
                 <input matInput class="calendar-table-wrapper__search-input" [matDatepicker]="dp"  placeholder="Data locação" #inputSearch (dateInput)="applyFilter($event)">
                 <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
                 <mat-datepicker #dp></mat-datepicker>
@@ -20,12 +18,11 @@
     </mat-card-title>
   
     <mat-card-content >
-        <table class="calendar-table__table" mat-table [dataSource]="dataSource">
+        <table class="calendar-table__table" mat-table [dataSource]="equipamentArray">
             <ng-container matColumnDef="equipamento" >
                 <th class="calendar-table__table-header" mat-header-cell *matHeaderCellDef > EQUIPAMENTO </th>
                 <td class="calendar-table__table-body"  mat-cell *matCellDef="let element" (click)="openDialog(element)">
-                    <span style="float: left; width: 100%;">{{element.equipament.name}}</span>  
-                    <span style="float: left;" >{{descriptionSpecifications(element)}} </span>
+                    <span style="float: left; width: 100%;">{{element.name}}</span>
                 </td>
             </ng-container>
 
