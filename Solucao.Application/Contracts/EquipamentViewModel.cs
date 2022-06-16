@@ -14,6 +14,7 @@ namespace Solucao.Application.Contracts
         public DateTime? UpdatedAt { get; set; }
         public bool Active { get; set; }
         public string Name { get; set; }
+        public int Order { get; set; }
         public List<EquipamentSpecifications> EquipamentSpecifications { get; set; }
     }
 }

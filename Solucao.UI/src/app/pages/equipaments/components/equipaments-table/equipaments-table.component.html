@@ -13,12 +13,14 @@
             <tr>
                 <th class="equipament-table__table-row-title">NOME</th>
                 <th class="equipament-table__table-row-title">ATIVO/INATIVO</th>
+                <th class="equipament-table__table-row-title">ORDEM</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let item of dataSource" (click)="openDialog(item)" class="equipament-table__row">
                 <td class="equipament-table__cell">{{item.name}}</td>
                 <td class="equipament-table__cell">{{item.active ? 'ATIVO' : 'INATIVO'}}</td>
+                <td class="equipament-table__cell">{{item.order}}</td>
             </tr>
         </tbody>
       </table>

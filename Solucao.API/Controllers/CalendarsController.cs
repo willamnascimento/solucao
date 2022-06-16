@@ -18,7 +18,7 @@ namespace Solucao.API.Controllers
 {
     [Route("api/v1")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class CalendarsController : ControllerBase
     {
         private readonly ICalendarService calendarService;
@@ -34,9 +34,9 @@ namespace Solucao.API.Controllers
         [SwaggerResponse((int)HttpStatusCode.BadRequest, Type = typeof(ApplicationError))]
         [SwaggerResponse((int)HttpStatusCode.Conflict, Type = typeof(ApplicationError))]
         [SwaggerResponse((int)HttpStatusCode.NotFound, Type = typeof(ApplicationError))]
-        public async Task<IEnumerable<CalendarViewModel>> GetAllAsync([FromQuery] CalendarRequest model)
+        public async Task<IEnumerable<EquipamentList>> GetAllAsync([FromQuery] CalendarRequest model)
         {
-            return await calendarService.GetAll(model.Date);
+            return await calendarService.GetAllByDate(model.Date);
         }
 
         [HttpGet("calendar/availability")]
@@ -95,9 +95,25 @@ namespace Solucao.API.Controllers
                     model.Note = result.ErrorMessage;
             }
 
-            var user = userService.GetByName(User.Identity.Name).Result;
+            var user = await userService.GetByName(User.Identity.Name);
 
             result = await calendarService.Update(model, user.Id);
+
+            if (result != null)
+                return NotFound(result);
+
+            return Ok(result);
+        }
+
+        [HttpPut("calendar/update-driver-or-technique-calendar")]
+        [SwaggerResponse((int)HttpStatusCode.OK, Type = typeof(Calendar))]
+        [SwaggerResponse((int)HttpStatusCode.BadRequest, Type = typeof(ApplicationError))]
+        [SwaggerResponse((int)HttpStatusCode.Conflict, Type = typeof(ApplicationError))]
+        [SwaggerResponse((int)HttpStatusCode.NotFound, Type = typeof(ApplicationError))]
+        public async Task<IActionResult> UpdateDriverOrTechniqueCalendarAsync([FromBody] CalendarRequest model)
+        {
+            ValidationResult result;
+            result = await calendarService.UpdateDriverOrTechniqueCalendar(model.CalendarId.Value, model.PersonId.Value, model.IsDriver);
 
             if (result != null)
                 return NotFound(result);

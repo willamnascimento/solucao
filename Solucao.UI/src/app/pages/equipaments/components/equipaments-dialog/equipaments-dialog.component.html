@@ -15,8 +15,14 @@
         </div>
       </div>
       <div class="row">
-        <div class="col">
-            <mat-checkbox formControlName="active" checked="form.value.active" >Ativo</mat-checkbox>
+        <div class="col col-3">
+          <mat-form-field appearance="outline">
+            <mat-label>Ordem</mat-label>
+            <input matInput placeholder="Ordem" formControlName="order" type="number">
+          </mat-form-field>
+        </div>
+        <div class="col col-3">
+            <mat-checkbox class="checkbox" formControlName="active" checked="form.value.active" >Ativo</mat-checkbox>
         </div>
       </div>
       <div class="row">

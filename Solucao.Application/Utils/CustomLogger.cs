@@ -41,7 +41,7 @@ namespace Solucao.Application.Utils
                 var today = DateTime.Now.ToString("yyyy-MM-dd");
                 var path = Environment.GetEnvironmentVariable("LogPath");
 
-                string fullPath = $"{path}\\log{today}.txt";
+                string fullPath = $@"{path}\log{today}.txt";
 
                 if (!File.Exists(fullPath))
                     File.Create(fullPath);

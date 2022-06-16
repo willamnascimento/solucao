@@ -15,13 +15,15 @@ namespace Solucao.Application.Service.Implementations
     public class CalendarService : ICalendarService
     {
         private CalendarRepository calendarRepository;
+        private EquipamentRepository equipamentRepository;
         private SpecificationRepository specificationRepository;
         private readonly IMapper mapper;
-        public CalendarService(CalendarRepository _calendarRepository, IMapper _mapper, SpecificationRepository _specificationRepository)
+        public CalendarService(CalendarRepository _calendarRepository, IMapper _mapper, SpecificationRepository _specificationRepository, EquipamentRepository _equipamentRepository)
         {
             calendarRepository = _calendarRepository;
             mapper = _mapper;
             specificationRepository = _specificationRepository;
+            equipamentRepository = _equipamentRepository;
         }
 
         public async Task<IEnumerable<CalendarViewModel>> GetAll(DateTime date)
@@ -184,7 +186,6 @@ namespace Solucao.Application.Service.Implementations
                             return new ValidationResult("Diferença da locação do equipamento menor que 60 minutos.");
 
                     }
-
                 }
 
                 return ValidationResult.Success;
@@ -216,6 +217,50 @@ namespace Solucao.Application.Service.Implementations
                 }
             }
             return true;
+        }
+
+        public async Task<IEnumerable<EquipamentList>> GetAllByDate(DateTime date)
+        {
+            var list = new List<EquipamentList>();
+            var equipament = await equipamentRepository.GetAll(true);
+            var calendars = await calendarRepository.GetAll(date);
+
+            foreach (var item in equipament)
+            {
+                var item_ = new EquipamentList();
+                item_.Equipament = item;
+                item_.Equipament.EquipamentSpecifications = null;
+                var dayCalendars = calendars.Where(x => x.EquipamentId == item.Id);
+                if (dayCalendars.Any())
+                {
+                    item_.Calendars = dayCalendars;
+                }
+
+                list.Add(item_);
+            }
+            return list;
+        }
+
+        public async Task<ValidationResult> UpdateDriverOrTechniqueCalendar(Guid id, Guid personId, bool isDriver)
+        {
+            try
+            {
+                var calendar = await calendarRepository.GetById(id);
+
+                if (isDriver)
+                    calendar.DriverId = personId;
+                else
+                    calendar.TechniqueId = personId;
+
+                await calendarRepository.Update(calendar);
+
+                return ValidationResult.Success;
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

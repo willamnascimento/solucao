@@ -18,11 +18,11 @@ namespace Solucao.API.Controllers
     [Route("api/v1")]
     [ApiController]
     [Authorize]
-    public class EquipamentsController : ControllerBase
+    public class EquipamentController : ControllerBase
     {
         private readonly IEquipamentService service;
 
-        public EquipamentsController(IEquipamentService _service)
+        public EquipamentController(IEquipamentService _service)
         {
             service = _service;
         }

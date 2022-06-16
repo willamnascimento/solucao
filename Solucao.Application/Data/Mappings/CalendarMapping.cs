@@ -63,6 +63,9 @@ namespace Solucao.Application.Data.Mappings
 
             builder.Property(c => c.TemporaryName)
                 .HasColumnType("varchar(50)");
+
+            builder.Property(c => c.TravelOn)
+                .HasColumnType("int");
         }
     }
 }

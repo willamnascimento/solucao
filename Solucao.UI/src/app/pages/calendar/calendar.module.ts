@@ -1,4 +1,3 @@
-import { CalendarItemComponent } from './components/calendar-item/calendar-item.component';
 import { StickyNotesService } from './../../shared/services/sticky-notes.service';
 import { StickyNotesTableComponent } from './components/sticky-notes-table/sticky-notes-table.component';
 import { NgModule } from '@angular/core';
@@ -22,6 +21,7 @@ import { CalendarTableComponent } from './components/calendar-table/calendar-tab
 import { CalendarDialogComponent } from './components/calendar-dialog/calendar-dialog.component';
 import { CalendarService } from 'src/app/shared/services/calendar.service';
 import { TextMaskModule } from 'angular2-text-mask';
+import { PersonDialogUpdateComponent } from './components/person-dialog-update/person-dialog-update.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +29,7 @@ import { TextMaskModule } from 'angular2-text-mask';
       CalendarTableComponent,
       CalendarDialogComponent,
       StickyNotesTableComponent,
-      CalendarItemComponent
+      PersonDialogUpdateComponent
   ],
   imports: [
     CommonModule,

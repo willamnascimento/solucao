@@ -139,7 +139,7 @@
     border-radius: 32px;
     color: $white;
     text-align: center;
-    padding: 5px 10px;
+    padding: 5px 5px;
     font-size: 13px;
     box-sizing: border-box;
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -167,5 +167,9 @@
 
 .Excluida {
   background-color: magenta;
+}
+
+.Pre-Agendada {
+  background-color: lightskyblue;
 }
 

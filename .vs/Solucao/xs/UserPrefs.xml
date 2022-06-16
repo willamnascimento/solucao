@@ -1,24 +1,35 @@
-﻿<Properties StartupConfiguration="{D920BF05-4488-4690-BBB3-042C606B6165}|Default">
+﻿<Properties StartupConfiguration="{D920BF05-4488-4690-BBB3-042C606B6165}|Default" MonoDevelop.Ide.FileNesting.Enabled="False">
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.ItemProperties.Solucao.API PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Solucao.API/Startup.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Solucao.Application/Data/Repositories/CalendarRepository.cs">
     <Files>
-      <File FileName="Solucao.API/Services/DatabaseManagementService.cs" Line="1" Column="1" />
-      <File FileName="Solucao.API/Program.cs" Line="16" Column="1" />
-      <File FileName="Solucao.API/Properties/launchSettings.json" Line="14" Column="29" />
-      <File FileName="Solucao.API/Startup.cs" Line="16" Column="33" />
-      <File FileName="Solucao.API/appsettings.json" Line="14" Column="17" />
+      <File FileName="Solucao.API/appsettings.json" Line="20" Column="16" />
+      <File FileName="Solucao.API/Controllers/EquipamentsController.cs" Line="62" Column="79" />
+      <File FileName="Solucao.Application/Contracts/EquipamentViewModel.cs" Line="17" Column="39" />
+      <File FileName="Solucao.Application/Data/Repositories/EquipamentRepository.cs" Line="27" Column="132" />
+      <File FileName="Solucao.API/Controllers/CalendarsController.cs" Line="39" Column="1" />
+      <File FileName="Solucao.Application/Service/Implementations/CalendarService.cs" Line="227" Column="1" />
+      <File FileName="Solucao.Application/Service/Interfaces/ICalendarService.cs" Line="17" Column="14" />
+      <File FileName="Solucao.Application/Contracts/Requests/CalendarRequest.cs" Line="5" Column="18" />
+      <File FileName="Solucao.Application/Contracts/EquipamentList.cs" Line="10" Column="27" />
+      <File FileName="Solucao.Application/Data/Repositories/CalendarRepository.cs" Line="35" Column="86" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Solucao" expanded="True">
             <Node name="Solucao.API" expanded="True">
-              <Node name="Properties" expanded="True" />
+              <Node name="Controllers" expanded="True" />
             </Node>
             <Node name="Solucao.Application" expanded="True">
+              <Node name="Contracts" expanded="True" />
               <Node name="Data" expanded="True">
-                <Node name="Entities" expanded="True" />
-                <Node name="Mappings" expanded="True" />
+                <Node name="Repositories" expanded="True" />
+              </Node>
+              <Node name="Service" expanded="True">
+                <Node name="Implementations" expanded="True" />
+                <Node name="Interfaces" expanded="True" />
               </Node>
             </Node>
           </Node>
@@ -29,12 +40,8 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/will.i.am/git/solucao/Solucao.API/Program.cs" relfile="Solucao.API/Program.cs" line="16" column="13" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
 </Properties>

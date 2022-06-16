@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatInput } from '@angular/material/input';
 import { MatSelect } from '@angular/material/select';
 import { ToastrService } from 'ngx-toastr';
 import { City } from 'src/app/shared/models/city';
@@ -20,9 +21,13 @@ import { ClientsService } from '../../../../shared/services/clients.service';
     id: string;
     isPhysicalPerson: boolean;
     estados: State[];
+    arrayEstados: State[];
     cidades: City[];
+    arrayCidades: City[];
     @ViewChild('estado') selectEstado: MatSelect;
     @ViewChild('cidade') selectCidade: MatSelect;
+    @ViewChild('stateInputSearch') stateInputSearch: any;
+    @ViewChild('cityInputSearch') cityInputSearch: any;
 
     constructor(
       public dialogRef: MatDialogRef<ClientsDialogComponent>,
@@ -94,12 +99,14 @@ import { ClientsService } from '../../../../shared/services/clients.service';
     getEstados(){
       this.estadosCidadesService.getEstados().subscribe((resp: State[]) => {
         this.estados = resp;
+        this.arrayEstados = resp;
       });
     }
 
     getCidadesByEstado(estado_id: number){
       this.estadosCidadesService.getCidadesByEstado(estado_id).subscribe((resp: City[]) => {
         this.cidades = resp;
+        this.arrayCidades = resp;
       });
       if (this.data.element?.cityId != null){
         setTimeout(() => {
@@ -107,6 +114,36 @@ import { ClientsService } from '../../../../shared/services/clients.service';
         },500);
       }
       
+    }
+
+    openedState(value): void {
+      this.stateInputSearch.nativeElement.focus();
+    }
+
+    openedCity(): void {
+      this.cityInputSearch.nativeElement.focus();
+    }
+
+    onKeyState(value): void{
+      this.arrayEstados = []
+      let filter = value.toLowerCase();
+      for ( let i = 0; i < this.estados.length; i++){
+        let option = this.estados[i];
+        if (option.nome.toLowerCase().indexOf(filter) >= 0){
+          this.arrayEstados.push(option);
+        }
+      }
+    }
+
+    onKeyCity(value): void{
+      this.arrayCidades = []
+      let filter = value.toLowerCase();
+      for ( let i = 0; i < this.cidades.length; i++){
+        let option = this.cidades[i];
+        if (option.nome.toLowerCase().indexOf(filter) >= 0){
+          this.arrayCidades.push(option);
+        }
+      }
     }
 
     onSubmit(){

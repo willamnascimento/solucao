@@ -23,14 +23,17 @@ namespace Solucao.Application.Data.Repositories
 
         public async Task<IEnumerable<Calendar>> GetAll(DateTime date)
         {
-            
-                return await Db.Calendars.Include(x => x.Equipament)
+            var notIn = new List<string> { "3", "4" };
+
+            return await Db.Calendars.Include(x => x.Equipament)
+                                         .Include(x => x.Client.City)
                                          .Include(x => x.Client)
                                          .Include(x => x.Driver)
                                          .Include(x => x.Technique)
                                          .Include(x => x.User)
                                          .Include(x => x.CalendarSpecifications)
-                                         .Where(x => x.Date.Date == date && x.Active).OrderBy(x => x.Status).ToListAsync();
+                                         .Where(x => x.Date.Date == date && x.Active )
+                                         .OrderBy(x => x.Status).ToListAsync();
 
         }
 

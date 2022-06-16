@@ -3,7 +3,7 @@ import { Equipament } from './../../../../shared/models/equipament';
 import { EquipamentsService } from './../../../../shared/services/equipaments.service';
 import { ToastrService } from 'ngx-toastr';
 import { SpecificationsService } from 'src/app/shared/services/specifications.service';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
@@ -13,6 +13,7 @@ import { CalendarDialogComponent } from '../calendar-dialog/calendar-dialog.comp
 import moment from 'moment';
 import { Specification } from 'src/app/shared/models/specification';
 import { MY_FORMATS } from 'src/app/consts/my-format';
+import { PersonDialogUpdateComponent } from '../person-dialog-update/person-dialog-update.component';
 
 
 
@@ -25,11 +26,11 @@ import { MY_FORMATS } from 'src/app/consts/my-format';
       {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
     ],
   })
-  export class CalendarTableComponent implements OnInit{
+  export class CalendarTableComponent implements OnInit, AfterViewInit{
     
     displayedColumns: string[] = ['equipamento', 'locatario', 'horario', 'tecnica', 'motorista','usuario','status','obs'];
     @ViewChild('inputSearch') inputSearch: ElementRef;
-    dataSource: Calendar[];
+    dataSource: [];
     isShowFilterInput = false;
     currentDate = new Date();
     specificationArray: Specification[];
@@ -39,6 +40,24 @@ import { MY_FORMATS } from 'src/app/consts/my-format';
     todayDate;
     inputReadonly = false;
     innerValue: Date = new Date();
+    icons: any = [
+      {
+        id: "0",
+        icon: ""
+      },
+      {
+        id: "1",
+        icon: "arrow_forward"
+      },
+      {
+        id: "2",
+        icon: "arrow_back"
+      },
+      {
+        id: "3",
+        icon: "swap_horiz"
+      }
+    ];
 
     constructor(private calendarService: CalendarService,
                 public dialog: MatDialog,
@@ -46,6 +65,10 @@ import { MY_FORMATS } from 'src/app/consts/my-format';
                 private equipamentService: EquipamentsService,
                 private toastrService: ToastrService) {
       this.time = moment();
+    }
+
+    ngAfterViewInit(): void {
+      this.ajusteCSS();
     }
 
     showFilterInput(): void {
@@ -78,7 +101,6 @@ import { MY_FORMATS } from 'src/app/consts/my-format';
 
     ngOnInit(): void {
       this.getCalendars();
-      this.getEquipament();
       this.loadSpecifications();
     }
 
@@ -91,20 +113,9 @@ import { MY_FORMATS } from 'src/app/consts/my-format';
 
     getCalendars(): void{
       let date = this.time.format('YYYY-MM-DD');
-      this.calendarService.getCalendarByDay(date).subscribe((resp: Calendar[]) => {
+      this.calendarService.getCalendarByDay(date).subscribe((resp: any) => {
         this.dataSource = resp;
       });
-    }
-
-    getEquipament(): void {
-      this.equipamentService.loadEquipaments(true).subscribe((resp: Equipament[]) => {
-        this.equipamentArray = resp;
-      });
-      
-    }
-
-    filterItemsByEquipament(item: Equipament): Calendar[] {
-      return this.dataSource.filter(x => x.equipamentId === item.id);
     }
 
     openDialog(element: Calendar){
@@ -113,6 +124,40 @@ import { MY_FORMATS } from 'src/app/consts/my-format';
         height: '600px',
         disableClose: true,
         data: {element}
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        if (result === undefined)
+          return;
+        
+        this.getCalendars();           
+      });
+    }
+
+    openDialogTechnique(element: Calendar){
+      let isDriver = false;
+      const dialogRef = this.dialog.open(PersonDialogUpdateComponent, {
+        width: '400px',
+        height: '250px',
+        disableClose: true,
+        data: {element, isDriver}
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        if (result === undefined)
+          return;
+        
+        this.getCalendars();           
+      });
+    }
+
+    openDialogDriver(element: Calendar){
+      let isDriver = true;
+      const dialogRef = this.dialog.open(PersonDialogUpdateComponent, {
+        width: '400px',
+        height: '250px',
+        disableClose: true,
+        data: {element, isDriver}
       });
   
       dialogRef.afterClosed().subscribe(result => {
@@ -146,17 +191,62 @@ import { MY_FORMATS } from 'src/app/consts/my-format';
       return start + ' - ' + end;
     }
 
-    statusToString(status){
-      let ret = 'Confirmada';
+    showClientCity(item){
+      let ret = [];
+      if (item.noCadastre){
+        ret.push(item.temporaryName);
+      }else{
+        let split = item.client.name.split(' ');
+        ret.push(split[0]);
+        ret.push(item.client.city.nome)
+      }
+      
+      if (item.calendarSpecifications.filter(x => x.active).length > 0){
+        ret.push(this.descriptionSpecifications(item));
+      }
 
-      if (status === '2'){
-        ret = 'Pendente';
-      }else if (status === '3'){
-        ret = 'Cancelada';
-      }else if (status === '4'){
-        ret = 'Excluida';
+      return ret.join(' - ');
+    }
+
+    showIconTravelOn(value): string {
+      let ret = '';
+      switch(value){
+        case 1:
+          ret = 'arrow_forward';
+          break;
+        case 2:
+          ret = 'arrow_back';
+          break;
+        case 3:
+          ret = 'swap_horiz';
+          break;
+      }
+      return ret;
+;    }
+
+    statusToString(status): string{
+      let ret = 'Confirmada';
+      switch (status){
+        case '2':
+          ret = 'Pendente';
+          break;
+        case '3':
+          ret = 'Cancelada';
+          break;
+        case '4':
+          ret = 'Excluida';
+          break;
+        case '5':
+          ret = 'Pre-Agendada'
+          break;
       }
 
       return ret;
+    }
+
+    ajusteCSS(): void {
+      document
+            .querySelectorAll<HTMLElement>('.header__title-button-icon')
+            .forEach(node => node.click())
     }
   }

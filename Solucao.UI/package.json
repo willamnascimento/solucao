@@ -35,6 +35,7 @@
     "ngx-bootstrap": "^6.2.0",
     "ngx-echarts": "6.0.1",
     "ngx-mask": "^12.0.0",
+    "ngx-mat-select-search": "^4.0.0",
     "ngx-toastr": "13.2.1",
     "ngx-trend": "6.1.1",
     "rxjs": "6.5.3",

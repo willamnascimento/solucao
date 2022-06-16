@@ -62,7 +62,6 @@
           <mat-form-field appearance="outline">
             <mat-label>Técnica</mat-label>
             <mat-select id="techniqueId" formControlName="techniqueId" [(value)]="form.value.techniqueId">
-              <mat-option id="teste">Sem Técnica</mat-option>
               <mat-option *ngFor="let item of techniqueResult" [value]="item.id">{{item.name}}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -83,6 +82,7 @@
               <mat-option value="2">Pendente</mat-option>
               <mat-option value="3">Cancelada</mat-option>
               <mat-option value="4">Excluida</mat-option>
+              <mat-option value="5">Pré Agendada</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -91,7 +91,7 @@
         <div class="col col-3">
           <mat-form-field appearance="outline">
             <mat-label>Data</mat-label>
-            <input matInput [matDatepicker]="dp" [min]="todayDate" placeholder="Verbose datepicker" formControlName="date">
+            <input matInput [matDatepicker]="dp" [min]="todayDate" placeholder="Verbose datepicker" formControlName="date" (focus)="dp.open()">
             <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
             <mat-datepicker #dp></mat-datepicker>
           </mat-form-field>
@@ -111,10 +111,34 @@
         </div>
       </div>
       <div class="row">
-        <div class="col">
+        <div class="col" style="width: 70%; float: left;">
           <mat-form-field appearance="outline">
             <mat-label>Observação</mat-label>
             <input matInput placeholder="Observação" formControlName="note">
+          </mat-form-field>
+        </div>
+        <div class="col" style="width: 30%; float: left;">
+          <mat-form-field appearance="outline">
+            <mat-label>Segue Viagem?</mat-label>
+            
+            <mat-select formControlName="travelOn" (selectionChange)="onRoomChange($event.value)">
+              <mat-option [value]="0">
+                <mat-icon></mat-icon>
+              </mat-option>
+              <mat-option [value]="1">
+                <mat-icon>arrow_forward</mat-icon>
+              </mat-option>
+              <mat-option [value]="2">
+                <mat-icon>arrow_back</mat-icon>
+              </mat-option>
+              <mat-option [value]="3">
+                <mat-icon>swap_horiz</mat-icon>
+              </mat-option>
+              <!-- MUST USE mat-select-trigger TO SHOW mat-icon -->
+              <mat-select-trigger >
+                <mat-icon style="margin-top: -15px;">{{selectedtype}}</mat-icon>&nbsp;
+              </mat-select-trigger>
+            </mat-select>
           </mat-form-field>
         </div>
       </div>

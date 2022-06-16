@@ -36,6 +36,18 @@ export class CalendarService {
       return resp;
     }));
   }
+
+  updateDriverOrTechniqueCalendar(personId: string, calendarId: string, isDriver: boolean): Observable<Calendar> {
+    let put = {
+      personId,
+      calendarId,
+      isDriver
+    }
+    return this.http.put(`${environment.URL_API}${URL_CALENDARS}/update-driver-or-technique-calendar`,put)
+    .pipe(map((resp: Calendar) => {
+      return resp;
+    }))
+  }
   
   availability(startDate: string, endDate: string, clientId: string, equipamentId: string): Observable<Calendar[]>{
     return this.http.get(`${environment.URL_API}${URL_CALENDARS}/availability?startDate=${startDate}&endDate=${endDate}&clientId=${clientId}&equipamentId=${equipamentId}`)

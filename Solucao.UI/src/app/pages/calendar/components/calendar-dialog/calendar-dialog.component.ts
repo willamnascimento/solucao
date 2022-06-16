@@ -51,8 +51,28 @@ const moment = _rollupMoment || _moment;
     isLoadingEquipament = false;
     notFound = false;
     todayDate;
-    inputReadonly = false;
+    inputReadonly = true;
     semCadastro = false;
+    @ViewChild('selectIcon') selectIcon;
+    selectedtype: any;
+    icons: any = [
+      {
+        id: "0",
+        icon: ""
+      },
+      {
+        id: "1",
+        icon: "arrow_forward"
+      },
+      {
+        id: "2",
+        icon: "arrow_back"
+      },
+      {
+        id: "3",
+        icon: "swap_horiz"
+      }
+    ];
 
     constructor(
       public dialogRef: MatDialogRef<CalendarDialogComponent>,
@@ -72,12 +92,14 @@ const moment = _rollupMoment || _moment;
 
     readOnly(): void{
       const data = this.data.element?.date;
-      
-      if (data !== undefined){
-        if (moment(data,'YYYY-MM-DD').valueOf() < moment(this.todayDate,'DD-MM-YYYY').valueOf()){
-          this.inputReadonly = true;
-        }
+      if (data === undefined){
+        this.inputReadonly = false;
+        return;
       }
+      let ret = this.compare(data.substring(0,10),this.formatDate(this.todayDate));
+      
+      if (ret >= 0)
+        this.inputReadonly = false;
     }
 
     ngAfterViewInit(): void {
@@ -127,7 +149,6 @@ const moment = _rollupMoment || _moment;
       this.getSpecifications();
       this.createForm();
       this.onChanges();
-      console.log(this.form.value.techniqueId);
     }
 
     createForm(): void {
@@ -163,6 +184,7 @@ const moment = _rollupMoment || _moment;
         note: this.inputReadonly ? [{value: this.data.element?.note, disabled: true}] : [this.data.element?.note],
         userId: [this.data.element?.userId],
         parentId: [this.data.element?.parentId],
+        travelOn: this.inputReadonly ? [{value: this.data.element?.travelOn || 0, disabled: true}] : [{value: this.data.element?.travelOn || 0, disabled: false}],
         date: this.inputReadonly ? [{value: this.data.element?.date || null,disabled: true},Validators.required] : [{value: this.data.element?.date || null, disabled: false},Validators.required],
         startTime1:this.inputReadonly ? [{value: this.data.element?.startTime.substring(11,16), disabled: true}] : [this.data.element?.startTime.substring(11,16) || null,Validators.required],
         endTime1: this.inputReadonly ? [{value: this.data.element?.endTime.substring(11,16), disabled: true}] : [this.data.element?.endTime.substring(11,16) || null,Validators.required],
@@ -172,6 +194,7 @@ const moment = _rollupMoment || _moment;
         calendarSpecifications:  this.formBuilder.array(this.data.element?.calendarSpecifications ? array : [])
       });
       this.semCadastro = this.form.value.noCadastre;
+      this.selectedtype = this.icons.find(x => x.id == this.form.value.travelOn).icon;
       
     } 
 
@@ -194,6 +217,10 @@ const moment = _rollupMoment || _moment;
       this.equipamentService.loadEquipaments(true).subscribe((resp: Equipament[]) => {
         this.equipamentResult = resp;
       })
+    }
+
+    onRoomChange(value){
+      this.selectedtype = this.icons.find(x => x.id == value).icon;
     }
 
     getSpecifications(): void{
@@ -247,6 +274,28 @@ const moment = _rollupMoment || _moment;
         }
         );
       }
+    }
+
+    compare(dateTimeA, dateTimeB) {
+      debugger
+      var data_locacao = moment(dateTimeA,"YYYY-MM-DD");
+      var hoje = moment(dateTimeB,"YYYY-MM-DD");
+      if (data_locacao > hoje) return 1;
+      else if (data_locacao < hoje) return -1;
+      else return 0;
+    }
+
+    padTo2Digits(num) {
+      return num.toString().padStart(2, '0');
+    }
+
+    formatDate(date) {
+      return [
+        date.getFullYear(),
+        this.padTo2Digits(date.getMonth() + 1),
+        this.padTo2Digits(date.getDate()),
+        ,
+      ].join('-');
     }
 
     ajustesCSS(){

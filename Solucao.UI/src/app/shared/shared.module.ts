@@ -56,7 +56,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     MatRadioModule,
     MatChipsModule,
     MatDatepickerModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
   ],
   exports: [
     HeaderModule,
@@ -78,7 +78,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     MatRadioModule,
     MatChipsModule,
     MatDatepickerModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
   ],
   providers: [
     EstadosCidadesServices

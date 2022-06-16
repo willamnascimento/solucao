@@ -9,5 +9,8 @@ namespace Solucao.Application.Contracts.Requests
         public DateTime EndDate { get; set; }
         public Guid? ClientId { get; set; }
         public Guid? EquipamentId { get; set; }
+        public Guid? CalendarId { get; set; }
+        public Guid? PersonId { get; set; }
+        public bool IsDriver { get; set; }
     }
 }

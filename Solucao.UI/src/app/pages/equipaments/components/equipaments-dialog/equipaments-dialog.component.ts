@@ -58,6 +58,7 @@ import { SpecificationsService } from 'src/app/shared/services/specifications.se
         id:  [this.data.element?.id || ''],
         name: [this.data.element?.name || '', Validators.required],
         active: [this.data.element?.active || true, Validators.required],
+        order: [this.data.element?.order || 0],
         createdAt: [this.data.element?.createdAt || new Date()],
         updatedAt: [this.data.element?.updatedsAt || null],
         equipamentSpecifications: this.formBuilder.array(arr)

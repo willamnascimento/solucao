@@ -24,7 +24,7 @@ namespace Solucao.Application.Data.Repositories
 
         public async Task<IEnumerable<Equipament>> GetAll(bool ativo)
         {
-            return await Db.Equipaments.Include(x => x.EquipamentSpecifications).Where(x => x.Active == ativo).OrderBy(x => x.Name).ToListAsync();
+            return await Db.Equipaments.Include(x => x.EquipamentSpecifications).Where(x => x.Active == ativo).OrderBy(x => x.Order).ToListAsync();
         }
 
         public async Task<ValidationResult> Add(Equipament equipament)
